@@ -3,18 +3,34 @@
 {% block title %}Upload Notes{% endblock %}
 {% block page_title %}Upload Notes{% endblock %}
 
+{% block extra_css %}
+.upload-zone{border:2px dashed rgba(255,255,255,.1);border-radius:16px;padding:40px;text-align:center;transition:all .3s;margin-top:16px;cursor:pointer}
+.upload-zone:hover{border-color:rgba(99,102,241,.4);background:rgba(99,102,241,.04)}
+.upload-zone i{font-size:40px;color:rgba(255,255,255,.2);margin-bottom:12px}
+.upload-zone p{color:rgba(255,255,255,.4);font-size:14px}
+{% endblock %}
+
 {% block content %}
 <div class="dash-panel">
-  <h3><i class="fas fa-upload" style="color:#16a34a"></i> Upload Study Material</h3>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-    <select id="noteType" class="form-select">
-      <option value="">Select Note Type</option>
-      <option value="Subject Notes">Subject Notes</option>
-      <option value="Placement Notes">Placement Notes</option>
-    </select>
-    <input type="text" id="subject" placeholder="Subject Name" class="form-input">
-    <input type="file" id="file" class="form-input">
-    <button class="btn btn-success" onclick="uploadNotes()"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+  <h3><i class="fas fa-upload" style="color:#4ade80"></i> Upload Study Material</h3>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end">
+    <div style="flex:1;min-width:180px">
+      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Note Type</label>
+      <select id="noteType" class="form-select" style="width:100%">
+        <option value="">Select Note Type</option>
+        <option value="Subject Notes">Subject Notes</option>
+        <option value="Placement Notes">Placement Notes</option>
+      </select>
+    </div>
+    <div style="flex:1;min-width:180px">
+      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Subject Name</label>
+      <input type="text" id="subject" placeholder="e.g. Java Programming" class="form-input" style="width:100%">
+    </div>
+    <div style="flex:1;min-width:200px">
+      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">File</label>
+      <input type="file" id="file" class="form-input" style="width:100%">
+    </div>
+    <button class="btn btn-success" onclick="uploadNotes()" style="height:42px"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
   </div>
   <div id="message" style="margin-top:14px;font-size:14px;font-weight:500"></div>
 </div>
@@ -27,11 +43,11 @@ function uploadNotes(){
   const file = document.getElementById("file").files[0];
   const msg = document.getElementById("message");
   if(!type || !subject || !file){
-    msg.style.color="#ef4444";
+    msg.style.color="#f87171";
     msg.innerText="Please fill all fields!";
     return;
   }
-  msg.style.color="#16a34a";
+  msg.style.color="#4ade80";
   msg.innerText="Notes uploaded successfully!";
 }
 {% endblock %}

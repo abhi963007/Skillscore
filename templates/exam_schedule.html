@@ -5,14 +5,14 @@
 
 {% block content %}
 <div class="dash-panel">
-  <h3><i class="fas fa-calendar" style="color:#2563eb"></i> Scheduled Exams</h3>
+  <h3><i class="fas fa-calendar" style="color:#818cf8"></i> Scheduled Exams</h3>
   <table class="dash-table">
     <thead>
-      <tr><th>Exam</th><th>Date</th><th>Time</th><th>Action</th></tr>
+      <tr><th>Exam</th><th>Date</th><th>Time</th><th>Students</th><th>Action</th></tr>
     </thead>
     <tbody>
-      <tr><td>Java Internal</td><td>10 Feb 2026</td><td>10:00 AM</td><td><button class="btn btn-danger btn-sm" onclick="if(confirm('Cancel Java Internal?'))alert('Cancelled')">Cancel</button></td></tr>
-      <tr><td>Aptitude Test</td><td>12 Feb 2026</td><td>02:00 PM</td><td><button class="btn btn-danger btn-sm" onclick="if(confirm('Cancel Aptitude Test?'))alert('Cancelled')">Cancel</button></td></tr>
+      <tr><td style="font-weight:500;color:#f1f5f9">Java Internal</td><td>10 Feb 2026</td><td>10:00 AM</td><td>42</td><td><button class="btn btn-danger btn-sm" onclick="if(confirm('Cancel Java Internal?'))alert('Cancelled')"><i class="fas fa-times"></i> Cancel</button></td></tr>
+      <tr><td style="font-weight:500;color:#f1f5f9">Aptitude Test</td><td>12 Feb 2026</td><td>02:00 PM</td><td>86</td><td><button class="btn btn-danger btn-sm" onclick="if(confirm('Cancel Aptitude Test?'))alert('Cancelled')"><i class="fas fa-times"></i> Cancel</button></td></tr>
     </tbody>
   </table>
 </div>

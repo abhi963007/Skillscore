@@ -1,8 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const examRoutes = require("./routes/exam");
-const resultRoutes = require("./routes/result");
+const examRoutes = require("./route/exam");
+const resultRoutes = require("./route/result");
 
 const app = express();
 app.use(bodyParser.json());

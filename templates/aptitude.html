@@ -4,24 +4,26 @@
 {% block page_title %}Aptitude Test{% endblock %}
 
 {% block extra_css %}
-.apt-timer{background:#fee2e2;color:#991b1b;padding:10px 20px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
-.apt-tabs{display:flex;gap:10px;margin-bottom:20px}
-.apt-tab{padding:10px 20px;border-radius:10px;background:#e2e8f0;cursor:pointer;font-weight:500;font-size:14px;border:none;font-family:'Poppins',sans-serif;transition:all .2s}
-.apt-tab.active{background:#2563eb;color:#fff}
+.apt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.apt-timer{background:rgba(239,68,68,.12);color:#f87171;padding:10px 20px;border-radius:12px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(239,68,68,.15)}
+.apt-tabs{display:flex;gap:8px;margin-bottom:20px}
+.apt-tab{padding:10px 20px;border-radius:10px;background:rgba(255,255,255,.06);cursor:pointer;font-weight:500;font-size:13px;border:1px solid rgba(255,255,255,.06);font-family:'Inter',sans-serif;transition:all .2s;color:rgba(255,255,255,.6)}
+.apt-tab:hover{background:rgba(255,255,255,.1);color:#fff}
+.apt-tab.active{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border-color:transparent;box-shadow:0 2px 12px rgba(99,102,241,.3)}
 .apt-section{display:none}
 .apt-section.active{display:block}
-.q-block{margin-bottom:20px;padding:18px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
-.q-block p{font-weight:600;color:#1e293b;margin-bottom:10px}
-.q-block label{display:block;margin:6px 0;cursor:pointer;font-size:14px;color:#334155;padding:8px 12px;border-radius:8px;transition:background .2s}
-.q-block label:hover{background:#e2e8f0}
-.q-block label input{margin-right:10px}
+.q-block{margin-bottom:18px;padding:20px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06)}
+.q-block p{font-weight:600;color:#f1f5f9;margin-bottom:12px;font-size:14px}
+.q-block label{display:block;margin:6px 0;cursor:pointer;font-size:14px;color:rgba(255,255,255,.65);padding:10px 14px;border-radius:10px;transition:all .2s;border:1px solid transparent}
+.q-block label:hover{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.15);color:#f1f5f9}
+.q-block label input{margin-right:10px;accent-color:#6366f1}
 {% endblock %}
 
 {% block content %}
 <div class="dash-panel" style="max-width:800px">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
-    <h3><i class="fas fa-brain" style="color:#8b5cf6"></i> Aptitude Test</h3>
-    <div class="apt-timer"><i class="fas fa-clock"></i> Time Left: <span id="aptTime">10:00</span></div>
+  <div class="apt-header">
+    <h3 style="margin-bottom:0"><i class="fas fa-brain" style="color:#c084fc"></i> Aptitude Test</h3>
+    <div class="apt-timer"><i class="fas fa-clock"></i> <span id="aptTime">10:00</span></div>
   </div>
 
   <div class="apt-tabs">
@@ -54,7 +56,7 @@
     </div>
   </div>
 
-  <div style="text-align:center;margin-top:20px">
+  <div style="text-align:center;margin-top:24px">
     <button class="btn btn-success" style="padding:12px 30px" onclick="submitAptTest()"><i class="fas fa-paper-plane"></i> Submit Aptitude Test</button>
   </div>
 </div>
