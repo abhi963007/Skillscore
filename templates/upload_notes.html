@@ -1,0 +1,37 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Upload Notes{% endblock %}
+{% block page_title %}Upload Notes{% endblock %}
+
+{% block content %}
+<div class="dash-panel">
+  <h3><i class="fas fa-upload" style="color:#16a34a"></i> Upload Study Material</h3>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+    <select id="noteType" class="form-select">
+      <option value="">Select Note Type</option>
+      <option value="Subject Notes">Subject Notes</option>
+      <option value="Placement Notes">Placement Notes</option>
+    </select>
+    <input type="text" id="subject" placeholder="Subject Name" class="form-input">
+    <input type="file" id="file" class="form-input">
+    <button class="btn btn-success" onclick="uploadNotes()"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+  </div>
+  <div id="message" style="margin-top:14px;font-size:14px;font-weight:500"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+function uploadNotes(){
+  const type = document.getElementById("noteType").value;
+  const subject = document.getElementById("subject").value;
+  const file = document.getElementById("file").files[0];
+  const msg = document.getElementById("message");
+  if(!type || !subject || !file){
+    msg.style.color="#ef4444";
+    msg.innerText="Please fill all fields!";
+    return;
+  }
+  msg.style.color="#16a34a";
+  msg.innerText="Notes uploaded successfully!";
+}
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Create Exam{% endblock %}
+{% block page_title %}Create Exam{% endblock %}
+
+{% block extra_css %}
+.exam-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.question-block{border:1px solid #e2e8f0;padding:18px;border-radius:12px;margin-top:18px;background:#fafbfc}
+.question-block h4{color:#1e40af;margin-bottom:12px;font-size:14px}
+.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+.opt-box{background:#f1f5f9;padding:12px;border-radius:8px}
+.opt-box input{width:100%;margin-top:6px}
+{% endblock %}
+
+{% block content %}
+<!-- Exam Details -->
+<div class="dash-panel">
+  <h3><i class="fas fa-pen-to-square" style="color:#2563eb"></i> Exam Details</h3>
+  <div class="exam-grid">
+    <input type="text" id="subject" placeholder="Subject Name" class="form-input">
+    <select id="examType" class="form-select">
+      <option value="">Exam Type</option>
+      <option>Subject Exam</option>
+      <option>Aptitude</option>
+      <option>Placement</option>
+    </select>
+    <input type="date" id="examDate" class="form-input">
+    <input type="time" id="examTime" class="form-input">
+    <input type="number" id="duration" placeholder="Duration (mins)" class="form-input">
+  </div>
+</div>
+
+<!-- Questions -->
+<div class="dash-panel">
+  <h3><i class="fas fa-circle-question" style="color:#8b5cf6"></i> Add Questions</h3>
+  <div id="questionContainer"></div>
+  <div style="margin-top:18px;display:flex;gap:12px">
+    <button class="btn btn-primary" onclick="addQuestion()"><i class="fas fa-plus"></i> Add Question</button>
+    <button class="btn btn-success" onclick="saveExam()"><i class="fas fa-save"></i> Save Exam</button>
+  </div>
+  <div id="msg" style="margin-top:14px;font-size:14px;font-weight:500"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+let questionCount = 0;
+function addQuestion(){
+  questionCount++;
+  const div = document.createElement("div");
+  div.className = "question-block";
+  div.innerHTML = '<h4>Question '+questionCount+'</h4><input type="text" placeholder="Enter question" class="form-input q"><div class="opts-grid"><div class="opt-box"><input type="text" placeholder="Option A" class="form-input"><input type="text" placeholder="Description A" class="form-input"></div><div class="opt-box"><input type="text" placeholder="Option B" class="form-input"><input type="text" placeholder="Description B" class="form-input"></div><div class="opt-box"><input type="text" placeholder="Option C" class="form-input"><input type="text" placeholder="Description C" class="form-input"></div><div class="opt-box"><input type="text" placeholder="Option D" class="form-input"><input type="text" placeholder="Description D" class="form-input"></div></div><select class="form-select answer" style="margin-top:12px"><option value="">Correct Answer</option><option value="A">Option A</option><option value="B">Option B</option><option value="C">Option C</option><option value="D">Option D</option></select>';
+  document.getElementById("questionContainer").appendChild(div);
+}
+function saveExam(){
+  const msg = document.getElementById("msg");
+  const s = document.getElementById("subject").value;
+  const t = document.getElementById("examType").value;
+  const d = document.getElementById("examDate").value;
+  const dur = document.getElementById("duration").value;
+  if(!s || !t || !d || !dur){ msg.style.color="#ef4444"; msg.innerText="Please fill all exam details"; return; }
+  msg.style.color="#16a34a"; msg.innerText="Exam saved successfully!";
+}
+{% endblock %}

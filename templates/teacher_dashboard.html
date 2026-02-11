@@ -1,0 +1,68 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+{% block page_title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+<!-- Cards -->
+<div class="cards-grid">
+  <a href="{{ url_for('view_results') }}"><div class="dash-card">
+    <div class="card-icon bg-purple"><i class="fas fa-users"></i></div>
+    <span class="card-label">Students</span>
+  </div></a>
+  <a href="{{ url_for('upload_notes') }}"><div class="dash-card">
+    <div class="card-icon bg-green"><i class="fas fa-upload"></i></div>
+    <span class="card-label">Upload Notes</span>
+  </div></a>
+  <a href="{{ url_for('create_exam') }}"><div class="dash-card">
+    <div class="card-icon bg-blue"><i class="fas fa-pen-to-square"></i></div>
+    <span class="card-label">Create Exam</span>
+  </div></a>
+  <a href="{{ url_for('view_results') }}"><div class="dash-card">
+    <div class="card-icon bg-amber"><i class="fas fa-chart-bar"></i></div>
+    <span class="card-label">View Results</span>
+  </div></a>
+  <a href="{{ url_for('exam_schedule') }}"><div class="dash-card">
+    <div class="card-icon bg-red"><i class="fas fa-calendar"></i></div>
+    <span class="card-label">Exam Schedule</span>
+  </div></a>
+  <a href="{{ url_for('attendance') }}"><div class="dash-card">
+    <div class="card-icon bg-pink"><i class="fas fa-clipboard-check"></i></div>
+    <span class="card-label">Attendance</span>
+  </div></a>
+</div>
+
+<!-- Upcoming Exams -->
+<div class="dash-panel">
+  <h3><i class="fas fa-calendar-alt" style="color:#2563eb"></i> Upcoming Exams</h3>
+  <table class="dash-table">
+    <thead>
+      <tr><th>Exam</th><th>Subject</th><th>Date</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mid Term</td><td>Java</td><td>12 Feb 2026</td><td><span class="badge badge-warning">Scheduled</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Student Queries -->
+<div class="dash-panel">
+  <h3><i class="fas fa-comments" style="color:#8b5cf6"></i> Student Queries</h3>
+  <div class="announce-item"><strong>Ann:</strong> Doubt in inheritance concept</div>
+  <div class="announce-item"><strong>Rahul:</strong> When is re-test?</div>
+</div>
+
+<!-- Student Results -->
+<div class="dash-panel">
+  <h3><i class="fas fa-chart-bar" style="color:#16a34a"></i> Student Results</h3>
+  <table class="dash-table">
+    <thead>
+      <tr><th>Student</th><th>Exam</th><th>Score</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Ann</td><td>Java Test</td><td>85%</td><td><span class="badge badge-success">Pass</span></td></tr>
+      <tr><td>Rahul</td><td>Aptitude</td><td>62%</td><td><span class="badge badge-warning">Average</span></td></tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

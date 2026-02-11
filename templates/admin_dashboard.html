@@ -1,0 +1,69 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+{% block page_title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<!-- Cards -->
+<div class="cards-grid">
+  <a href="{{ url_for('manage_users') }}"><div class="dash-card">
+    <div class="card-icon bg-blue"><i class="fas fa-users"></i></div>
+    <span class="card-label">Manage Users</span>
+  </div></a>
+  <a href="{{ url_for('all_exams') }}"><div class="dash-card">
+    <div class="card-icon bg-amber"><i class="fas fa-file-pen"></i></div>
+    <span class="card-label">All Exams</span>
+  </div></a>
+  <a href="{{ url_for('reports') }}"><div class="dash-card">
+    <div class="card-icon bg-red"><i class="fas fa-chart-line"></i></div>
+    <span class="card-label">Reports</span>
+  </div></a>
+  <a href="{{ url_for('settings') }}"><div class="dash-card">
+    <div class="card-icon bg-purple"><i class="fas fa-gear"></i></div>
+    <span class="card-label">Settings</span>
+  </div></a>
+  <a href="{{ url_for('audit_logs') }}"><div class="dash-card">
+    <div class="card-icon bg-slate"><i class="fas fa-clock-rotate-left"></i></div>
+    <span class="card-label">Audit Logs</span>
+  </div></a>
+</div>
+
+<!-- Quick Add User -->
+<div class="dash-panel">
+  <h3><i class="fas fa-user-plus" style="color:#2563eb"></i> Quick Add User</h3>
+  <form action="{{ url_for('admin_add_user') }}" method="POST" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+    <input type="text" name="name" placeholder="Full Name" required class="form-input">
+    <input type="email" name="email" placeholder="Email" required class="form-input">
+    <select name="role" class="form-select">
+      <option value="student">Student</option>
+      <option value="teacher">Teacher</option>
+      <option value="admin">Admin</option>
+    </select>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add User</button>
+  </form>
+</div>
+
+<!-- Exam Monitoring -->
+<div class="dash-panel">
+  <h3><i class="fas fa-desktop" style="color:#f59e0b"></i> Exam Monitoring</h3>
+  <table class="dash-table">
+    <thead>
+      <tr><th>Exam</th><th>Teacher</th><th>Date</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Java Internal</td><td>Mr. Kumar</td><td>10 Feb 2026</td><td><span class="badge badge-success">Active</span></td></tr>
+      <tr><td>Aptitude Test</td><td>Ms. Archana</td><td>12 Feb 2026</td><td><span class="badge badge-warning">Scheduled</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Reports -->
+<div class="dash-panel">
+  <h3><i class="fas fa-chart-pie" style="color:#ef4444"></i> Reports & Downloads</h3>
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <button class="btn btn-primary"><i class="fas fa-download"></i> Student Report</button>
+    <button class="btn btn-success"><i class="fas fa-download"></i> Exam Report</button>
+    <button class="btn btn-outline"><i class="fas fa-download"></i> Placement Report</button>
+  </div>
+</div>
+{% endblock %}

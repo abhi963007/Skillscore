@@ -1,0 +1,20 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}View Results{% endblock %}
+{% block page_title %}View Results{% endblock %}
+
+{% block content %}
+<div class="dash-panel">
+  <h3><i class="fas fa-chart-bar" style="color:#16a34a"></i> Student Results</h3>
+  <table class="dash-table">
+    <thead>
+      <tr><th>Student</th><th>Exam</th><th>Score</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Ann</td><td>Java</td><td>85%</td><td><span class="badge badge-success">Pass</span></td></tr>
+      <tr><td>Rahul</td><td>Aptitude</td><td>62%</td><td><span class="badge badge-warning">Average</span></td></tr>
+      <tr><td>Sneha</td><td>Python</td><td>45%</td><td><span class="badge badge-danger">Fail</span></td></tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,393 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Display+Playfair:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.fancybox.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='fonts/icomoon/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='fonts/flaticon/font/flaticon.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/aos.css') }}">
+
+<!-- ALWAYS LAST -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+  <title>SkillScore-Academic & Placement Readiness Analyser</title>
+</head>
+
+<body>
+
+  <div class="site-mobile-menu">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close">
+        <span class="icofont-close js-menu-toggle"></span>
+      </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+  </div>
+
+
+  
+  <nav class="site-nav mb-5">
+    <div class="pb-2 top-bar mb-3">
+      <div class="container">
+        <div class="row align-items-center">
+
+          <div class="col-6 col-lg-9">
+            <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a> 
+            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">8735495715</span></a> 
+            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">skillscorelearner225@gmail.com</span></a> 
+          </div>
+
+          {% if user.id %}
+          <a href="{% if user.role == 'admin' %}{{ url_for('admin_dashboard') }}{% elif user.role == 'teacher' %}{{ url_for('teacher_dashboard') }}{% else %}{{ url_for('student_dashboard') }}{% endif %}" class="small mr-3">
+            <span class="icon-person"></span> {{ user.name }} ({{ user.role|capitalize }})
+          </a>
+          <a href="{{ url_for('logout') }}" class="small"><span class="icon-lock"></span> Logout</a>
+          {% else %}
+          <a href="{{ url_for('login') }}" class="small mr-3"><span class="icon-lock"></span> Log In</a>
+          <a href="{{ url_for('register') }}" class="small"><span class="icon-person"></span> Register</a>
+          {% endif %}
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="sticky-nav js-sticky-header">
+  <div class="container position-relative">
+    <div class="site-navigation text-center">
+
+      <a href="{{ url_for('index') }}" class="logo menu-absolute m-0">
+        SkillScore<span class="text-primary"></span>
+      </a>
+
+      <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
+        <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About Us</a></li>
+        <li><a href="{{ url_for('features') }}">Features</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Our Team</a></li>
+      </ul>
+
+      <a href="{{ url_for('login') }}"
+         class="btn-book btn btn-secondary btn-sm menu-absolute">
+         Enroll Now
+      </a>
+
+      <a href="{{ url_for('login') }}"
+         class="burger ml-auto float-right site-menu-toggle js-menu-toggle
+                d-inline-block d-lg-none light">
+        <span></span>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+  </nav>
+  
+
+  <div class="untree_co-hero overlay"
+     style="background-image: url('{{ url_for('static', filename='images/index.jpg') }}');">
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+        <div class="col-12">
+          <div class="row justify-content-center ">
+            <div class="col-lg-6 text-center ">
+              <h1 class="mb-4 heading text-white" data-aos="fade-up" data-aos-delay="100">About Us</h1>
+              <div class="mb-5 text-white desc mx-auto" data-aos="fade-up" data-aos-delay="200">
+                <p> <a href="https://untree.co/" target="_blank" class="link-highlight"></a>SkillScore is an Academic & Placement Readiness Analyser designed to help students
+track their learning progress, prepare for exams, and enhance employability skills through smart assessments and performance analytics.</p>
+              </div>
+
+              
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+
+  </div> <!-- /.untree_co-hero -->
+
+
+
+
+  <div class="services-section">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+
+          <div class="section-title mb-3" data-aos="fade-up" data-aos-delay="0">
+            <h2 class="line-bottom mb-4">Our Mission</h2>
+          </div>
+
+          <p data-aos="fade-up" data-aos-delay="100">Our mission is to bridge the gap between academics and industry readiness by providing a unified platform for notes, exams, aptitude tests, and performance analysis.</p>
+
+          <ul class="ul-check list-unstyled mb-5 primary" data-aos="fade-up" data-aos-delay="200">
+            <li>Smart Academic Evaluation.</li>
+            <li>Placement-focused aptitude training.</li>
+            <li>Data-driven performance insights.</li>
+          </ul>
+
+          <p data-aos="fade-up" data-aos-delay="300">
+  <a href="{{ url_for('login') }}" class="btn btn-primary">
+    Get Started
+  </a>
+</p>
+
+
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="0">
+          <figure class="img-wrap-2">
+            <img src="{{ url_for('static', filename='images/mission.jpg') }}"
+     alt="Image"
+     class="img-fluid">
+
+            <div class="dotted"></div>
+          </figure>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="untree_co-section">
+    <div class="container"> 
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
+          <h2 class="line-bottom text-center mb-4">We Have Best Education</h2>
+          <p>SkillScore provides an integrated learning ecosystem that supports academic success and placement readiness for students.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature">
+            <span class="uil uil-book-open"></span>
+            <h3>Book Open</h3>
+            <p>Subject-wise study materials uploaded by instructors for easy access.</p>
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature">
+            <span class="uil uil-clipboard-alt"></span>
+            <h3>Online Exam</h3>
+            <p>Create, attempt, and evaluate exams with instant results.</p>
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature">
+            <span class="uil uil-brain"></span>
+            <h3>Aptitude Test</h3>
+            <p>Placement-oriented aptitude and reasoning practice modules.</p>
+          </div>
+        </div>
+
+
+        <div class="col-6 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay=100">
+          <div class="feature">
+            <span class="uil uil-analytics"></span>
+            <h3>Performance Analytics</h3>
+            <p>Visual reports to track strengths, weaknesses, and improvement areas.</p>
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature">
+            <span class="uil uil-users-alt"></span>
+            <h3>Role-Based Access</h3>
+            <p>Dedicated dashboards for students, teachers, and administrators.</p>
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature">
+            <span class="uil uil-award"></span>
+            <h3>Placement Readiness</h3>
+            <p>Helps students prepare confidently for campus placements.</p>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /.container -->
+  </div> <!-- /.untree_co-section -->
+<div class="container">
+  <div class="row">
+    <!-- FULL WIDTH CONTENT -->
+    <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
+      
+      <h3 class="line-bottom mb-4 text-center">How SkillScore Works</h3>
+      <p class="text-center mb-5">
+        SkillScore follows a simple and effective workflow that helps students
+        improve academic performance and placement readiness.
+      </p>
+
+      <div class="row">
+
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="feature text-center p-3 shadow-sm rounded bg-white h-100">
+            <span class="uil uil-book-open text-primary" style="font-size:32px;"></span>
+            <h5 class="mt-3">Learn with Notes</h5>
+            <p class="mb-0">
+              Access subject-wise digital notes uploaded by teachers.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="feature text-center p-3 shadow-sm rounded bg-white h-100">
+            <span class="uil uil-clipboard-alt text-primary" style="font-size:32px;"></span>
+            <h5 class="mt-3">Attend Exams</h5>
+            <p class="mb-0">
+              Attempt online exams and aptitude tests anytime.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="feature text-center p-3 shadow-sm rounded bg-white h-100">
+            <span class="uil uil-brain text-primary" style="font-size:32px;"></span>
+            <h5 class="mt-3">Practice Aptitude</h5>
+            <p class="mb-0">
+              Improve reasoning and problem-solving skills for placements.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="feature text-center p-3 shadow-sm rounded bg-white h-100">
+            <span class="uil uil-analytics text-primary" style="font-size:32px;"></span>
+            <h5 class="mt-3">Analyze Performance</h5>
+            <p class="mb-0">
+              View detailed analytics to track strengths and weaknesses.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+            </div> <!-- .accordion-item -->
+
+            
+            </div> <!-- .accordion-item -->
+            
+
+            </div> <!-- .accordion-item -->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div> <!-- /.untree_co-section -->
+
+  <div class="site-footer">
+
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-3 mr-auto">
+          <div class="widget">
+            <h3>About Us<span class="text-primary">.</span> </h3>
+            <p>SkillScore is a comprehensive academic and placement platform designed to simplify learning, exams, aptitude tests, and performance analysis for students and educators.</p>
+          </div> <!-- /.widget -->
+          <div class="widget">
+            <!--<h3>Connect</h3>
+            <ul class="list-unstyled social">
+              <li><a href="#"><span class="icon-instagram"></span></a></li>
+              <li><a href="#"><span class="icon-twitter"></span></a></li>
+              <li><a href="#"><span class="icon-facebook"></span></a></li>
+              <li><a href="#"><span class="icon-linkedin"></span></a></li>
+              <li><a href="#"><span class="icon-pinterest"></span></a></li>
+              <li><a href="#"><span class="icon-dribbble"></span></a></li>
+            </ul>-->
+          </div> <!-- /.widget -->
+        </div> <!-- /.col-lg-3 -->
+
+        <div class="col-lg-2 ml-auto">
+          <div class="widget">
+            <h3>Projects</h3>
+            <ul class="list-unstyled float-left links">
+              <li><a href="{{ url_for('login') }}">Online Exams</a></li>
+              <li><a href="{{ url_for('login') }}">Aptitude</a></li>
+              <li><a href="{{ url_for('login') }}">Study Notes</a></li>
+              <li><a href="{{ url_for('login') }}">Performance Analytics</a></li>
+              <li><a href="{{ url_for('login') }}">Placement Preparation</a></li>
+            </ul>
+          </div> <!-- /.widget -->
+        </div> <!-- /.col-lg-3 -->
+
+        <div class="col-lg-2 ml-auto">
+          <div class="widget">
+            <h3>Quick Links</h3>
+            <ul class="list-unstyled float-left links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About Us</a></li>
+            <li><a href="{{ url_for('features') }}">Features</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+          </div> <!-- /.widget -->
+        </div> <!-- /.col-lg-3 -->
+
+
+        <div class="col-lg-3">
+          <div class="widget">
+            <h3>Contact</h3>
+            <address>SkillScore Support Team</address>
+            <ul class="list-unstyled links mb-4">
+              <li><a href="tel://11234567890">8735495715</a></li>
+              <li><a href="tel://11234567890">9496843760</a></li>
+              <li><a href="sillscorelearner225@gmail.com">sillscorelearner225@gmail.com</a></li>
+            </ul>
+          </div> <!-- /.widget -->
+        </div> <!-- /.col-lg-3 -->
+
+      </div> <!-- /.row -->
+
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <!--<p class="copyright">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a>--> <!-- License information: https://untree.co/license/ -->
+          </div>
+        </div>
+      </div> <!-- /.container -->
+    </div> <!-- /.site-footer -->
+
+    <div id="overlayer"></div>
+    <div class="loader">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.animateNumber.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.fancybox.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.sticky.js') }}"></script>
+<script src="{{ url_for('static', filename='js/aos.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+  </body>
+
+  </html>

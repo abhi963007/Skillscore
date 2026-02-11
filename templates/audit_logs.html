@@ -1,0 +1,21 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Audit Logs{% endblock %}
+{% block page_title %}Audit Logs{% endblock %}
+
+{% block content %}
+<div class="dash-panel">
+  <h3><i class="fas fa-clock-rotate-left" style="color:#475569"></i> Login Activity</h3>
+  <table class="dash-table">
+    <thead>
+      <tr><th>User</th><th>Role</th><th>Login Time</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Hareesh</td><td><span class="badge badge-danger">Admin</span></td><td>09:00 AM</td></tr>
+      <tr><td>Anu</td><td><span class="badge badge-info">Teacher</span></td><td>09:30 AM</td></tr>
+      <tr><td>Rahul</td><td><span class="badge badge-success">Student</span></td><td>10:15 AM</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:16px;font-size:14px;color:#64748b"><strong>Total Logins Today:</strong> 3</p>
+</div>
+{% endblock %}

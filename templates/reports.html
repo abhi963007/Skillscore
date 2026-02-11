@@ -1,0 +1,33 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Reports{% endblock %}
+{% block page_title %}Reports{% endblock %}
+
+{% block content %}
+<div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">
+  <div class="dash-card" style="padding:28px">
+    <div class="card-icon bg-blue"><i class="fas fa-chalkboard-teacher"></i></div>
+    <span class="card-label">Teacher Reports</span>
+    <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Download</button>
+  </div>
+  <div class="dash-card" style="padding:28px">
+    <div class="card-icon bg-green"><i class="fas fa-user-graduate"></i></div>
+    <span class="card-label">Student Reports</span>
+    <button class="btn btn-success btn-sm"><i class="fas fa-download"></i> Download</button>
+  </div>
+  <div class="dash-card" style="padding:28px">
+    <div class="card-icon bg-purple"><i class="fas fa-file-alt"></i></div>
+    <span class="card-label">Placement Reports</span>
+    <button class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Download</button>
+  </div>
+</div>
+
+<div class="dash-panel">
+  <h3><i class="fas fa-chart-pie" style="color:#ef4444"></i> Quick Stats</h3>
+  <div style="display:flex;gap:30px;flex-wrap:wrap">
+    <div><span style="font-size:28px;font-weight:700;color:#2563eb">28</span><br><span style="font-size:13px;color:#64748b">Total Exams</span></div>
+    <div><span style="font-size:28px;font-weight:700;color:#16a34a">340</span><br><span style="font-size:13px;color:#64748b">Total Students</span></div>
+    <div><span style="font-size:28px;font-weight:700;color:#f59e0b">12</span><br><span style="font-size:13px;color:#64748b">Total Teachers</span></div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}MCQ Generator{% endblock %}
+{% block page_title %}Auto MCQ Generator{% endblock %}
+
+{% block extra_css %}
+.mcq-card{background:#fff;border-radius:14px;padding:24px;margin-bottom:18px;box-shadow:0 2px 12px rgba(0,0,0,.06);border-left:4px solid #2563eb}
+.mcq-card .mcq-q{font-weight:600;color:#1e293b;margin-bottom:12px;font-size:15px}
+.mcq-card label{display:block;margin:6px 0;font-size:14px;color:#334155;padding:6px 12px;border-radius:6px;cursor:pointer}
+.mcq-card label:hover{background:#f1f5f9}
+.mcq-card label input{margin-right:8px}
+.mcq-answer{color:#16a34a;font-weight:600;margin-top:10px;font-size:14px}
+.mcq-desc{color:#64748b;font-size:13px;margin-top:6px}
+{% endblock %}
+
+{% block content %}
+<div class="dash-panel">
+  <h3><i class="fas fa-robot" style="color:#ea580c"></i> Upload Notes to Generate MCQs</h3>
+  <form method="POST" enctype="multipart/form-data" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+    <input type="file" name="notes" required class="form-input">
+    <button type="submit" class="btn btn-primary"><i class="fas fa-magic"></i> Generate MCQs</button>
+  </form>
+</div>
+
+{% if mcqs %}
+<div class="dash-panel">
+  <h3><i class="fas fa-list-check" style="color:#16a34a"></i> Generated Questions ({{ mcqs|length }})</h3>
+  {% for mcq in mcqs %}
+  <div class="mcq-card">
+    <div class="mcq-q">Q{{ loop.index }}. {{ mcq.question }}</div>
+    {% for opt in mcq.options %}
+      <label><input type="radio" name="gen_q{{ loop.parent.loop.index }}" disabled> {{ opt }}</label>
+    {% endfor %}
+    <div class="mcq-answer"><i class="fas fa-check-circle"></i> Correct: {{ mcq.answer }}</div>
+    <div class="mcq-desc"><i class="fas fa-info-circle"></i> {{ mcq.description }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

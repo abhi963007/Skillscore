@@ -1,0 +1,45 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Online Exam{% endblock %}
+{% block page_title %}Online Exam{% endblock %}
+
+{% block extra_css %}
+.exam-timer{background:#fee2e2;color:#991b1b;padding:10px 20px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
+.exam-timer i{font-size:16px}
+.q-block{margin-bottom:20px;padding:18px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
+.q-block p{font-weight:600;color:#1e293b;margin-bottom:10px}
+.q-block label{display:block;margin:6px 0;cursor:pointer;font-size:14px;color:#334155;padding:8px 12px;border-radius:8px;transition:background .2s}
+.q-block label:hover{background:#e2e8f0}
+.q-block label input{margin-right:10px}
+{% endblock %}
+
+{% block content %}
+<div class="dash-panel" style="max-width:750px">
+  <h3><i class="fas fa-file-alt" style="color:#8b5cf6"></i> Java Online Exam</h3>
+  <div class="exam-timer"><i class="fas fa-clock"></i> Time Left: <span id="time">05:00</span></div>
+
+  <form id="examForm">
+    <div class="q-block">
+      <p>1. What is JVM?</p>
+      <label><input type="radio" name="q1" value="a"> Java Virtual Machine</label>
+      <label><input type="radio" name="q1" value="b"> Java Variable Method</label>
+    </div>
+    <div class="q-block">
+      <p>2. Which is not OOPS?</p>
+      <label><input type="radio" name="q2" value="a"> Inheritance</label>
+      <label><input type="radio" name="q2" value="b"> Compilation</label>
+    </div>
+    <button type="submit" class="btn btn-primary" style="padding:12px 30px"><i class="fas fa-paper-plane"></i> Submit Exam</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+let examTime = 300;
+const examTimer = setInterval(()=>{
+  let m=Math.floor(examTime/60), s=examTime%60;
+  document.getElementById("time").innerHTML = m+":"+String(s).padStart(2,"0");
+  examTime--;
+  if(examTime<0){ clearInterval(examTimer); alert("Time up!"); }
+},1000);
+{% endblock %}

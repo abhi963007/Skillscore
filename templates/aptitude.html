@@ -1,0 +1,89 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Aptitude Test{% endblock %}
+{% block page_title %}Aptitude Test{% endblock %}
+
+{% block extra_css %}
+.apt-timer{background:#fee2e2;color:#991b1b;padding:10px 20px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
+.apt-tabs{display:flex;gap:10px;margin-bottom:20px}
+.apt-tab{padding:10px 20px;border-radius:10px;background:#e2e8f0;cursor:pointer;font-weight:500;font-size:14px;border:none;font-family:'Poppins',sans-serif;transition:all .2s}
+.apt-tab.active{background:#2563eb;color:#fff}
+.apt-section{display:none}
+.apt-section.active{display:block}
+.q-block{margin-bottom:20px;padding:18px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
+.q-block p{font-weight:600;color:#1e293b;margin-bottom:10px}
+.q-block label{display:block;margin:6px 0;cursor:pointer;font-size:14px;color:#334155;padding:8px 12px;border-radius:8px;transition:background .2s}
+.q-block label:hover{background:#e2e8f0}
+.q-block label input{margin-right:10px}
+{% endblock %}
+
+{% block content %}
+<div class="dash-panel" style="max-width:800px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+    <h3><i class="fas fa-brain" style="color:#8b5cf6"></i> Aptitude Test</h3>
+    <div class="apt-timer"><i class="fas fa-clock"></i> Time Left: <span id="aptTime">10:00</span></div>
+  </div>
+
+  <div class="apt-tabs">
+    <button class="apt-tab active" onclick="showAptSection('quant',this)">Quantitative</button>
+    <button class="apt-tab" onclick="showAptSection('logical',this)">Logical</button>
+    <button class="apt-tab" onclick="showAptSection('verbal',this)">Verbal</button>
+  </div>
+
+  <div id="quant" class="apt-section active">
+    <div class="q-block">
+      <p>1. What is 25% of 200?</p>
+      <label><input type="radio" name="q1" value="50"> 50</label>
+      <label><input type="radio" name="q1" value="25"> 25</label>
+    </div>
+  </div>
+
+  <div id="logical" class="apt-section">
+    <div class="q-block">
+      <p>2. Find the odd one out: Apple, Mango, Carrot</p>
+      <label><input type="radio" name="q2" value="Carrot"> Carrot</label>
+      <label><input type="radio" name="q2" value="Apple"> Apple</label>
+    </div>
+  </div>
+
+  <div id="verbal" class="apt-section">
+    <div class="q-block">
+      <p>3. Choose the correct synonym of "Fast"</p>
+      <label><input type="radio" name="q3" value="Quick"> Quick</label>
+      <label><input type="radio" name="q3" value="Slow"> Slow</label>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:20px">
+    <button class="btn btn-success" style="padding:12px 30px" onclick="submitAptTest()"><i class="fas fa-paper-plane"></i> Submit Aptitude Test</button>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+let aptTotal = 600;
+const aptTimerInterval = setInterval(()=>{
+  let m=Math.floor(aptTotal/60), s=aptTotal%60;
+  document.getElementById("aptTime").innerText = m+":"+String(s).padStart(2,"0");
+  aptTotal--;
+  if(aptTotal<0){ submitAptTest(); }
+},1000);
+
+function showAptSection(id, el){
+  document.querySelectorAll(".apt-section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".apt-tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  el.classList.add("active");
+}
+
+function submitAptTest(){
+  clearInterval(aptTimerInterval);
+  let score=0;
+  if(document.querySelector("input[name='q1']:checked")&&document.querySelector("input[name='q1']:checked").value==="50") score++;
+  if(document.querySelector("input[name='q2']:checked")&&document.querySelector("input[name='q2']:checked").value==="Carrot") score++;
+  if(document.querySelector("input[name='q3']:checked")&&document.querySelector("input[name='q3']:checked").value==="Quick") score++;
+  let pct=Math.round((score/3)*100);
+  alert("Aptitude Test Submitted! Score: "+pct+"%");
+  window.location.href = "{{ url_for('exam_result') }}";
+}
+{% endblock %}

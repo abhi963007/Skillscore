@@ -1,0 +1,84 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Student Dashboard{% endblock %}
+{% block page_title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<!-- Cards -->
+<div class="cards-grid">
+  <a href="{{ url_for('profile') }}"><div class="dash-card">
+    <div class="card-icon bg-amber"><i class="fas fa-user"></i></div>
+    <span class="card-label">Profile</span>
+  </div></a>
+  <a href="{{ url_for('subject_notes') }}"><div class="dash-card">
+    <div class="card-icon bg-red"><i class="fas fa-book"></i></div>
+    <span class="card-label">Subject Notes</span>
+  </div></a>
+  <a href="{{ url_for('placement_notes') }}"><div class="dash-card">
+    <div class="card-icon bg-cyan"><i class="fas fa-graduation-cap"></i></div>
+    <span class="card-label">Placement Notes</span>
+  </div></a>
+  <a href="{{ url_for('take_exam') }}"><div class="dash-card">
+    <div class="card-icon bg-purple"><i class="fas fa-file-alt"></i></div>
+    <span class="card-label">Exam</span>
+  </div></a>
+  <a href="{{ url_for('aptitude') }}"><div class="dash-card">
+    <div class="card-icon bg-slate"><i class="fas fa-brain"></i></div>
+    <span class="card-label">Aptitude</span>
+  </div></a>
+  <a href="{{ url_for('exam_result') }}"><div class="dash-card">
+    <div class="card-icon bg-teal"><i class="fas fa-chart-line"></i></div>
+    <span class="card-label">Exam Result</span>
+  </div></a>
+  <a href="{{ url_for('upload') }}"><div class="dash-card">
+    <div class="card-icon bg-orange"><i class="fas fa-robot"></i></div>
+    <span class="card-label">MCQ Generator</span>
+  </div></a>
+</div>
+
+<!-- Upcoming Exams -->
+<div class="dash-panel">
+  <h3><i class="fas fa-calendar-alt" style="color:#2563eb"></i> Upcoming Exams</h3>
+  <table class="dash-table">
+    <thead>
+      <tr><th>Subject</th><th>Date</th><th>Time</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Java</td><td>10 Feb 2026</td><td>10:00 AM</td><td><button class="btn btn-primary btn-sm start-btn">Start</button></td></tr>
+      <tr><td>Aptitude</td><td>12 Feb 2026</td><td>02:00 PM</td><td><button class="btn btn-primary btn-sm start-btn">Start</button></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Recent Results -->
+<div class="dash-panel">
+  <h3><i class="fas fa-chart-bar" style="color:#16a34a"></i> Recent Results</h3>
+  <table class="dash-table">
+    <thead>
+      <tr><th>Exam</th><th>Score</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Python Test</td><td>82%</td><td><span class="badge badge-success">Pass</span></td></tr>
+      <tr><td>Aptitude Mock</td><td>68%</td><td><span class="badge badge-warning">Average</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Announcements -->
+<div class="dash-panel">
+  <h3><i class="fas fa-bell" style="color:#f59e0b"></i> Announcements</h3>
+  <div class="announce-item">Aptitude exam scheduled on Friday.</div>
+  <div class="announce-item">New Java placement notes uploaded.</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+document.querySelectorAll(".start-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const subject = btn.closest("tr").children[0].innerText;
+    if (confirm("Start " + subject + " exam now?")) {
+      window.location.href = "{{ url_for('take_exam') }}";
+    }
+  });
+});
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Placement Notes{% endblock %}
+{% block page_title %}Placement Notes{% endblock %}
+
+{% block extra_css %}
+.note-item{background:#fff;border-radius:14px;padding:20px 24px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:all .25s}
+.note-item:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
+.note-item .note-name{font-size:15px;font-weight:500;color:#334155}
+.note-item .note-name i{margin-right:10px;color:#16a34a}
+{% endblock %}
+
+{% block content %}
+<div class="dash-panel">
+  <h3><i class="fas fa-graduation-cap" style="color:#0891b2"></i> Placement Study Material</h3>
+  <div class="note-item"><span class="note-name"><i class="fas fa-file-pdf"></i> Aptitude Preparation</span><button class="btn btn-success btn-sm"><i class="fas fa-download"></i> Download</button></div>
+  <div class="note-item"><span class="note-name"><i class="fas fa-file-pdf"></i> HR Interview Questions</span><button class="btn btn-success btn-sm"><i class="fas fa-download"></i> Download</button></div>
+  <div class="note-item"><span class="note-name"><i class="fas fa-file-pdf"></i> Technical Interview Q&amp;A</span><button class="btn btn-success btn-sm"><i class="fas fa-download"></i> Download</button></div>
+</div>
+{% endblock %}

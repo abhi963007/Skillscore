@@ -1,0 +1,46 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Manage Users | SkillScore{% endblock %}
+{% block page_title %}Manage Users{% endblock %}
+
+{% block content %}
+<!-- Add New User -->
+  <div class="dash-panel">
+    <h3><i class="fas fa-user-plus" style="color:#2563eb"></i> Add New User</h3>
+    <form action="{{ url_for('admin_add_user') }}" method="POST" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <input type="text" name="name" placeholder="Full Name" required class="form-input">
+      <input type="email" name="email" placeholder="Email" required class="form-input">
+      <select name="role" class="form-select">
+        <option value="student">Student</option>
+        <option value="teacher">Teacher</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add User</button>
+    </form>
+    <p style="font-size:12px;color:#94a3b8;margin-top:10px">Default password: <code>default123</code></p>
+  </div>
+
+  <!-- All Users -->
+  <div class="dash-panel">
+    <h3><i class="fas fa-users" style="color:#8b5cf6"></i> All Users ({{ users|length }})</h3>
+    <table class="dash-table">
+      <thead>
+        <tr><th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        <tr>
+          <td>{{ u.id }}</td>
+          <td>{{ u.name }}</td>
+          <td>{{ u.email }}</td>
+          <td><span class="badge badge-info">{{ u.role|capitalize }}</span></td>
+          <td><a href="{{ url_for('admin_delete_user', uid=u.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this user?')"><i class="fas fa-trash"></i> Delete</a></td>
+        </tr>
+        {% endfor %}
+        {% if users|length == 0 %}
+        <tr><td colspan="5" style="text-align:center;color:#9ca3af">No users found</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
