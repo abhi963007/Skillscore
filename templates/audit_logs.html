@@ -1,21 +1,35 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}Audit Logs{% endblock %}
 {% block page_title %}Audit Logs{% endblock %}
-
 {% block content %}
-<div class="dash-panel">
-  <h3><i class="fas fa-clock-rotate-left" style="color:#64748b"></i> Login Activity</h3>
-  <table class="dash-table">
-    <thead>
-      <tr><th>User</th><th>Role</th><th>Login Time</th><th>IP Address</th></tr>
-    </thead>
+
+<div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i class="fas fa-right-to-bracket"></i></div>
+    <div><div class="sc-val">342</div><div class="sc-label">Total Logins</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-clock"></i></div>
+    <div><div class="sc-val">Today</div><div class="sc-label">Last Activity</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)"><i class="fas fa-triangle-exclamation"></i></div>
+    <div><div class="sc-val">2</div><div class="sc-label">Failed Logins</div></div>
+  </div>
+</div>
+
+<div class="card-panel">
+  <h3><i class="fas fa-clipboard-list"></i> Login Activity</h3>
+  <table>
+    <thead><tr><th>User</th><th>Role</th><th>Login Time</th><th>IP Address</th><th>Status</th></tr></thead>
     <tbody>
-      <tr><td style="font-weight:500;color:#f1f5f9">Hareesh</td><td><span class="badge badge-danger">Admin</span></td><td>09:00 AM</td><td style="color:rgba(255,255,255,.4)">192.168.1.10</td></tr>
-      <tr><td style="font-weight:500;color:#f1f5f9">Anu</td><td><span class="badge badge-info">Teacher</span></td><td>09:30 AM</td><td style="color:rgba(255,255,255,.4)">192.168.1.22</td></tr>
-      <tr><td style="font-weight:500;color:#f1f5f9">Rahul</td><td><span class="badge badge-success">Student</span></td><td>10:15 AM</td><td style="color:rgba(255,255,255,.4)">192.168.1.35</td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Admin User</td><td><span class="badge blue">Admin</span></td><td>11 Feb 2026, 10:30 AM</td><td>192.168.1.1</td><td><span class="badge green">Success</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Dr. Anoop</td><td><span class="badge green">Teacher</span></td><td>11 Feb 2026, 09:15 AM</td><td>192.168.1.12</td><td><span class="badge green">Success</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Sneha R</td><td><span class="badge yellow">Student</span></td><td>10 Feb 2026, 04:45 PM</td><td>192.168.1.25</td><td><span class="badge green">Success</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Unknown</td><td><span class="badge red">-</span></td><td>10 Feb 2026, 03:20 PM</td><td>10.0.0.5</td><td><span class="badge red">Failed</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Akhil T</td><td><span class="badge yellow">Student</span></td><td>10 Feb 2026, 02:00 PM</td><td>192.168.1.30</td><td><span class="badge green">Success</span></td></tr>
     </tbody>
   </table>
-  <p style="margin-top:16px;font-size:14px;color:rgba(255,255,255,.4)"><strong style="color:#f1f5f9">Total Logins Today:</strong> 3</p>
 </div>
+
 {% endblock %}

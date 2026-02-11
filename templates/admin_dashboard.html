@@ -1,115 +1,87 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}Admin Dashboard{% endblock %}
 {% block page_title %}Admin Dashboard{% endblock %}
-
-{% block extra_css %}
-.welcome-banner{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(14,165,233,.1));border:1px solid rgba(99,102,241,.15);border-radius:18px;padding:32px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between}
-.welcome-banner .wb-text h2{font-size:24px;font-weight:700;color:#f1f5f9;margin-bottom:6px}
-.welcome-banner .wb-text p{font-size:14px;color:rgba(255,255,255,.5)}
-.welcome-banner .wb-icon{font-size:48px;color:rgba(99,102,241,.4)}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:28px}
-.stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:22px 20px;display:flex;align-items:center;gap:16px;transition:all .3s}
-.stat-card:hover{background:rgba(255,255,255,.07);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
-.stat-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0}
-.stat-info .stat-value{font-size:24px;font-weight:700;color:#f1f5f9}
-.stat-info .stat-label{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-@media(max-width:900px){.two-col{grid-template-columns:1fr}.welcome-banner{flex-direction:column;text-align:center;gap:16px}}
-{% endblock %}
-
 {% block content %}
-<!-- Welcome Banner -->
+
 <div class="welcome-banner">
-  <div class="wb-text">
-    <h2>Welcome back, {{ user.name }}!</h2>
-    <p>Here's what's happening with your platform today.</p>
+  <div>
+    <h2>Welcome, {{ session.get('user_name', 'Admin') }}!</h2>
+    <p>Manage users, monitor exams, and keep the platform running smoothly.</p>
   </div>
   <div class="wb-icon"><i class="fas fa-shield-halved"></i></div>
 </div>
 
-<!-- Stats -->
-<div class="stats-grid">
+<div class="stats-row">
   <div class="stat-card">
-    <div class="stat-icon bg-blue"><i class="fas fa-users"></i></div>
-    <div class="stat-info"><div class="stat-value">340</div><div class="stat-label">Total Users</div></div>
+    <div class="sc-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i class="fas fa-users"></i></div>
+    <div><div class="sc-val">128</div><div class="sc-label">Total Users</div></div>
   </div>
   <div class="stat-card">
-    <div class="stat-icon bg-green"><i class="fas fa-chalkboard-teacher"></i></div>
-    <div class="stat-info"><div class="stat-value">12</div><div class="stat-label">Teachers</div></div>
+    <div class="sc-icon" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-chalkboard-user"></i></div>
+    <div><div class="sc-val">15</div><div class="sc-label">Teachers</div></div>
   </div>
   <div class="stat-card">
-    <div class="stat-icon bg-amber"><i class="fas fa-file-pen"></i></div>
-    <div class="stat-info"><div class="stat-value">28</div><div class="stat-label">Total Exams</div></div>
+    <div class="sc-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-file-lines"></i></div>
+    <div><div class="sc-val">42</div><div class="sc-label">Total Exams</div></div>
   </div>
   <div class="stat-card">
-    <div class="stat-icon bg-purple"><i class="fas fa-chart-line"></i></div>
-    <div class="stat-info"><div class="stat-value">89%</div><div class="stat-label">Pass Rate</div></div>
+    <div class="sc-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)"><i class="fas fa-chart-line"></i></div>
+    <div><div class="sc-val">89%</div><div class="sc-label">Pass Rate</div></div>
   </div>
 </div>
 
-<!-- Quick Links -->
-<div class="cards-grid">
-  <a href="{{ url_for('manage_users') }}"><div class="dash-card">
-    <div class="card-icon bg-blue"><i class="fas fa-users"></i></div>
-    <span class="card-label">Manage Users</span>
-  </div></a>
-  <a href="{{ url_for('all_exams') }}"><div class="dash-card">
-    <div class="card-icon bg-amber"><i class="fas fa-file-pen"></i></div>
-    <span class="card-label">All Exams</span>
-  </div></a>
-  <a href="{{ url_for('reports') }}"><div class="dash-card">
-    <div class="card-icon bg-red"><i class="fas fa-chart-line"></i></div>
-    <span class="card-label">Reports</span>
-  </div></a>
-  <a href="{{ url_for('settings') }}"><div class="dash-card">
-    <div class="card-icon bg-purple"><i class="fas fa-gear"></i></div>
-    <span class="card-label">Settings</span>
-  </div></a>
-  <a href="{{ url_for('audit_logs') }}"><div class="dash-card">
-    <div class="card-icon bg-slate"><i class="fas fa-clock-rotate-left"></i></div>
-    <span class="card-label">Audit Logs</span>
-  </div></a>
+<div class="quick-links">
+  <a href="{{ url_for('manage_users') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i class="fas fa-users-gear"></i></div><div class="ql-label">Manage Users</div></a>
+  <a href="{{ url_for('all_exams') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-file-lines"></i></div><div class="ql-label">All Exams</div></a>
+  <a href="{{ url_for('reports') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-chart-bar"></i></div><div class="ql-label">Reports</div></a>
+  <a href="{{ url_for('audit_logs') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)"><i class="fas fa-clipboard-list"></i></div><div class="ql-label">Audit Logs</div></a>
+  <a href="{{ url_for('settings') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#64748b,#475569)"><i class="fas fa-gear"></i></div><div class="ql-label">Settings</div></a>
 </div>
 
-<div class="two-col">
-  <!-- Quick Add User -->
-  <div class="dash-panel">
-    <h3><i class="fas fa-user-plus" style="color:#818cf8"></i> Quick Add User</h3>
-    <form action="{{ url_for('admin_add_user') }}" method="POST" style="display:flex;flex-direction:column;gap:12px">
-      <input type="text" name="name" placeholder="Full Name" required class="form-input">
-      <input type="email" name="email" placeholder="Email" required class="form-input">
-      <select name="role" class="form-select">
-        <option value="student">Student</option>
-        <option value="teacher">Teacher</option>
-        <option value="admin">Admin</option>
-      </select>
-      <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add User</button>
+<div class="grid-2">
+  <div class="card-panel">
+    <h3><i class="fas fa-user-plus"></i> Quick Add User</h3>
+    <form method="POST" action="{{ url_for('admin_add_user') }}">
+      <div class="form-group"><label>Full Name</label><input type="text" name="name" class="form-input" placeholder="Enter full name" required></div>
+      <div class="form-group"><label>Email</label><input type="email" name="email" class="form-input" placeholder="user@example.com" required></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group"><label>Password</label><input type="password" name="password" class="form-input" placeholder="Password" required></div>
+        <div class="form-group"><label>Role</label><select name="role" class="form-input" required><option value="student">Student</option><option value="teacher">Teacher</option><option value="admin">Admin</option></select></div>
+      </div>
+      <button type="submit" class="btn-primary" style="margin-top:4px"><i class="fas fa-plus"></i> Add User</button>
     </form>
   </div>
 
-  <!-- Exam Monitoring -->
-  <div class="dash-panel">
-    <h3><i class="fas fa-desktop" style="color:#fbbf24"></i> Exam Monitoring</h3>
-    <table class="dash-table">
-      <thead>
-        <tr><th>Exam</th><th>Teacher</th><th>Status</th></tr>
-      </thead>
+  <div class="card-panel">
+    <h3><i class="fas fa-desktop"></i> Exam Monitoring</h3>
+    <table>
+      <thead><tr><th>Exam</th><th>Students</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td>Java Internal</td><td>Mr. Kumar</td><td><span class="badge badge-success">Active</span></td></tr>
-        <tr><td>Aptitude Test</td><td>Ms. Archana</td><td><span class="badge badge-warning">Scheduled</span></td></tr>
+        <tr><td>Python Basics</td><td>45</td><td><span class="badge green">Active</span></td></tr>
+        <tr><td>Aptitude Mock</td><td>62</td><td><span class="badge blue">Scheduled</span></td></tr>
+        <tr><td>Java Test</td><td>38</td><td><span class="badge yellow">Completed</span></td></tr>
+        <tr><td>DBMS Quiz</td><td>50</td><td><span class="badge green">Active</span></td></tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<!-- Reports -->
-<div class="dash-panel">
-  <h3><i class="fas fa-chart-pie" style="color:#f87171"></i> Reports & Downloads</h3>
-  <div style="display:flex;gap:12px;flex-wrap:wrap">
-    <button class="btn btn-primary"><i class="fas fa-download"></i> Student Report</button>
-    <button class="btn btn-success"><i class="fas fa-download"></i> Exam Report</button>
-    <button class="btn btn-outline"><i class="fas fa-download"></i> Placement Report</button>
+<div class="card-panel">
+  <h3><i class="fas fa-chart-pie"></i> Platform Overview</h3>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div style="padding:20px;background:#f8fafc;border-radius:12px;text-align:center;border:1px solid #f1f5f9">
+      <div style="font-size:28px;font-weight:800;color:#6366f1">95%</div>
+      <div style="font-size:12px;color:#94a3b8;margin-top:4px">Placement Rate</div>
+    </div>
+    <div style="padding:20px;background:#f8fafc;border-radius:12px;text-align:center;border:1px solid #f1f5f9">
+      <div style="font-size:28px;font-weight:800;color:#10b981">1,240</div>
+      <div style="font-size:12px;color:#94a3b8;margin-top:4px">Exams Taken</div>
+    </div>
+    <div style="padding:20px;background:#f8fafc;border-radius:12px;text-align:center;border:1px solid #f1f5f9">
+      <div style="font-size:28px;font-weight:800;color:#f59e0b">4.8/5</div>
+      <div style="font-size:12px;color:#94a3b8;margin-top:4px">User Rating</div>
+    </div>
   </div>
 </div>
+
 {% endblock %}

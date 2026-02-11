@@ -1,53 +1,72 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}Upload Notes{% endblock %}
 {% block page_title %}Upload Notes{% endblock %}
-
-{% block extra_css %}
-.upload-zone{border:2px dashed rgba(255,255,255,.1);border-radius:16px;padding:40px;text-align:center;transition:all .3s;margin-top:16px;cursor:pointer}
-.upload-zone:hover{border-color:rgba(99,102,241,.4);background:rgba(99,102,241,.04)}
-.upload-zone i{font-size:40px;color:rgba(255,255,255,.2);margin-bottom:12px}
-.upload-zone p{color:rgba(255,255,255,.4);font-size:14px}
-{% endblock %}
-
 {% block content %}
-<div class="dash-panel">
-  <h3><i class="fas fa-upload" style="color:#4ade80"></i> Upload Study Material</h3>
-  <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end">
-    <div style="flex:1;min-width:180px">
-      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Note Type</label>
-      <select id="noteType" class="form-select" style="width:100%">
-        <option value="">Select Note Type</option>
-        <option value="Subject Notes">Subject Notes</option>
-        <option value="Placement Notes">Placement Notes</option>
-      </select>
-    </div>
-    <div style="flex:1;min-width:180px">
-      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Subject Name</label>
-      <input type="text" id="subject" placeholder="e.g. Java Programming" class="form-input" style="width:100%">
-    </div>
-    <div style="flex:1;min-width:200px">
-      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">File</label>
-      <input type="file" id="file" class="form-input" style="width:100%">
-    </div>
-    <button class="btn btn-success" onclick="uploadNotes()" style="height:42px"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
-  </div>
-  <div id="message" style="margin-top:14px;font-size:14px;font-weight:500"></div>
-</div>
-{% endblock %}
 
-{% block extra_js %}
-function uploadNotes(){
-  const type = document.getElementById("noteType").value;
-  const subject = document.getElementById("subject").value;
-  const file = document.getElementById("file").files[0];
-  const msg = document.getElementById("message");
-  if(!type || !subject || !file){
-    msg.style.color="#f87171";
-    msg.innerText="Please fill all fields!";
-    return;
-  }
-  msg.style.color="#4ade80";
-  msg.innerText="Notes uploaded successfully!";
-}
+<div class="grid-2">
+  <div class="card-panel">
+    <h3><i class="fas fa-cloud-arrow-up"></i> Upload Study Material</h3>
+    <form>
+      <div class="form-group">
+        <label>Note Type</label>
+        <select class="form-input"><option>Subject Notes</option><option>Placement Notes</option></select>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" class="form-input" placeholder="e.g. Python, Java, DBMS">
+      </div>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-input" placeholder="Enter note title">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-input" placeholder="Brief description of the material"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Upload File</label>
+        <input type="file" class="form-input" style="padding:10px">
+      </div>
+      <button type="submit" class="btn-primary"><i class="fas fa-upload"></i> Upload Notes</button>
+    </form>
+  </div>
+
+  <div>
+    <div class="card-panel">
+      <h3><i class="fas fa-clock-rotate-left"></i> Recent Uploads</h3>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px"><i class="fas fa-file-pdf"></i></div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600;color:#1e293b">Python Basics.pdf</div><div style="font-size:11px;color:#94a3b8">Subject Notes &middot; 2.4 MB</div></div>
+          <span class="badge green">Uploaded</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px"><i class="fas fa-file-pdf"></i></div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600;color:#1e293b">Aptitude Formulas.pdf</div><div style="font-size:11px;color:#94a3b8">Placement Notes &middot; 1.8 MB</div></div>
+          <span class="badge green">Uploaded</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px"><i class="fas fa-file-pdf"></i></div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600;color:#1e293b">DBMS Notes.pdf</div><div style="font-size:11px;color:#94a3b8">Subject Notes &middot; 3.1 MB</div></div>
+          <span class="badge green">Uploaded</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-panel">
+      <h3><i class="fas fa-chart-simple"></i> Upload Stats</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="padding:16px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:#6366f1">18</div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px">Subject Notes</div>
+        </div>
+        <div style="padding:16px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:#10b981">6</div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px">Placement Notes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

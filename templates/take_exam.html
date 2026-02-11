@@ -1,49 +1,61 @@
 {% extends "dashboard_base.html" %}
-
-{% block title %}Online Exam{% endblock %}
+{% block title %}Take Exam{% endblock %}
 {% block page_title %}Online Exam{% endblock %}
-
-{% block extra_css %}
-.exam-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.exam-timer{background:rgba(239,68,68,.12);color:#f87171;padding:10px 20px;border-radius:12px;font-weight:600;display:inline-flex;align-items:center;gap:8px;font-size:15px;border:1px solid rgba(239,68,68,.15)}
-.exam-timer i{font-size:16px}
-.q-block{margin-bottom:18px;padding:20px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06);transition:all .2s}
-.q-block:hover{background:rgba(255,255,255,.05)}
-.q-block p{font-weight:600;color:#f1f5f9;margin-bottom:12px;font-size:14px}
-.q-block label{display:block;margin:6px 0;cursor:pointer;font-size:14px;color:rgba(255,255,255,.65);padding:10px 14px;border-radius:10px;transition:all .2s;border:1px solid transparent}
-.q-block label:hover{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.15);color:#f1f5f9}
-.q-block label input{margin-right:10px;accent-color:#6366f1}
-{% endblock %}
-
 {% block content %}
-<div class="dash-panel" style="max-width:750px">
-  <div class="exam-header">
-    <h3 style="margin-bottom:0"><i class="fas fa-file-alt" style="color:#c084fc"></i> Java Online Exam</h3>
-    <div class="exam-timer"><i class="fas fa-clock"></i> <span id="time">05:00</span></div>
+
+<div class="card-panel" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+  <div>
+    <h3 style="margin-bottom:4px"><i class="fas fa-file-pen"></i> Python Basics Test</h3>
+    <p style="font-size:13px;color:#94a3b8">Duration: 60 minutes &middot; Total: 10 Questions &middot; Marks: 100</p>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;padding:10px 20px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px">
+    <i class="fas fa-clock" style="color:#ef4444;font-size:18px"></i>
+    <span id="timer" style="font-size:20px;font-weight:800;color:#ef4444">60:00</span>
+  </div>
+</div>
+
+<div id="questionsArea">
+  <div class="card-panel">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700">1</div>
+      <span style="font-size:14px;font-weight:600;color:#1e293b">What is the output of print(2**3)?</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding-left:44px">
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;transition:all .2s;font-size:13px;color:#475569"><input type="radio" name="q1" value="A" style="accent-color:#6366f1"> A) 6</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;transition:all .2s;font-size:13px;color:#475569"><input type="radio" name="q1" value="B" style="accent-color:#6366f1"> B) 8</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;transition:all .2s;font-size:13px;color:#475569"><input type="radio" name="q1" value="C" style="accent-color:#6366f1"> C) 9</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;transition:all .2s;font-size:13px;color:#475569"><input type="radio" name="q1" value="D" style="accent-color:#6366f1"> D) 5</label>
+    </div>
   </div>
 
-  <form id="examForm">
-    <div class="q-block">
-      <p>1. What is JVM?</p>
-      <label><input type="radio" name="q1" value="a"> Java Virtual Machine</label>
-      <label><input type="radio" name="q1" value="b"> Java Variable Method</label>
+  <div class="card-panel">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700">2</div>
+      <span style="font-size:14px;font-weight:600;color:#1e293b">Which keyword is used to define a function in Python?</span>
     </div>
-    <div class="q-block">
-      <p>2. Which is not OOPS?</p>
-      <label><input type="radio" name="q2" value="a"> Inheritance</label>
-      <label><input type="radio" name="q2" value="b"> Compilation</label>
+    <div style="display:flex;flex-direction:column;gap:8px;padding-left:44px">
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="q2" value="A" style="accent-color:#6366f1"> A) function</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="q2" value="B" style="accent-color:#6366f1"> B) def</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="q2" value="C" style="accent-color:#6366f1"> C) func</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="q2" value="D" style="accent-color:#6366f1"> D) define</label>
     </div>
-    <button type="submit" class="btn btn-primary" style="padding:12px 30px"><i class="fas fa-paper-plane"></i> Submit Exam</button>
-  </form>
+  </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
-let examTime = 300;
-const examTimer = setInterval(()=>{
-  let m=Math.floor(examTime/60), s=examTime%60;
-  document.getElementById("time").innerHTML = m+":"+String(s).padStart(2,"0");
-  examTime--;
-  if(examTime<0){ clearInterval(examTimer); alert("Time up!"); }
+<div style="display:flex;justify-content:center;margin-top:20px">
+  <button class="btn-primary" onclick="if(confirm('Submit your answers?'))alert('Exam submitted successfully!')" style="padding:14px 40px;font-size:16px"><i class="fas fa-paper-plane"></i> Submit Exam</button>
+</div>
+
+<script>
+let time=3600;
+const timerEl=document.getElementById('timer');
+const interval=setInterval(()=>{
+  time--;
+  const m=Math.floor(time/60).toString().padStart(2,'0');
+  const s=(time%60).toString().padStart(2,'0');
+  timerEl.textContent=m+':'+s;
+  if(time<=0){clearInterval(interval);alert('Time is up!');timerEl.textContent='00:00'}
 },1000);
+</script>
+
 {% endblock %}

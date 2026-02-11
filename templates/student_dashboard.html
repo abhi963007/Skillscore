@@ -1,120 +1,77 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}Student Dashboard{% endblock %}
 {% block page_title %}Student Dashboard{% endblock %}
-
-{% block extra_css %}
-.welcome-banner{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(236,72,153,.1));border:1px solid rgba(139,92,246,.15);border-radius:18px;padding:32px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between}
-.welcome-banner .wb-text h2{font-size:24px;font-weight:700;color:#f1f5f9;margin-bottom:6px}
-.welcome-banner .wb-text p{font-size:14px;color:rgba(255,255,255,.5)}
-.welcome-banner .wb-icon{font-size:48px;color:rgba(139,92,246,.4)}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:28px}
-.stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:22px 20px;display:flex;align-items:center;gap:16px;transition:all .3s}
-.stat-card:hover{background:rgba(255,255,255,.07);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
-.stat-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0}
-.stat-info .stat-value{font-size:24px;font-weight:700;color:#f1f5f9}
-.stat-info .stat-label{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-@media(max-width:900px){.two-col{grid-template-columns:1fr}.welcome-banner{flex-direction:column;text-align:center;gap:16px}}
-{% endblock %}
-
 {% block content %}
-<div class="welcome-banner">
-  <div class="wb-text">
-    <h2>Hey, {{ user.name }}!</h2>
+
+<div class="welcome-banner" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+  <div>
+    <h2>Hey, {{ session.get('user_name', 'Student') }}!</h2>
     <p>Track your progress, take exams, and get placement-ready.</p>
   </div>
-  <div class="wb-icon"><i class="fas fa-rocket"></i></div>
+  <div class="wb-icon"><i class="fas fa-user-graduate"></i></div>
 </div>
 
-<div class="stats-grid">
+<div class="stats-row">
   <div class="stat-card">
-    <div class="stat-icon bg-blue"><i class="fas fa-file-alt"></i></div>
-    <div class="stat-info"><div class="stat-value">4</div><div class="stat-label">Exams Taken</div></div>
+    <div class="sc-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i class="fas fa-file-pen"></i></div>
+    <div><div class="sc-val">4</div><div class="sc-label">Exams Taken</div></div>
   </div>
   <div class="stat-card">
-    <div class="stat-icon bg-green"><i class="fas fa-chart-line"></i></div>
-    <div class="stat-info"><div class="stat-value">76%</div><div class="stat-label">Avg. Score</div></div>
+    <div class="sc-icon" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-chart-line"></i></div>
+    <div><div class="sc-val">76%</div><div class="sc-label">Avg. Score</div></div>
   </div>
   <div class="stat-card">
-    <div class="stat-icon bg-purple"><i class="fas fa-brain"></i></div>
-    <div class="stat-info"><div class="stat-value">82%</div><div class="stat-label">Aptitude Score</div></div>
+    <div class="sc-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-brain"></i></div>
+    <div><div class="sc-val">82%</div><div class="sc-label">Aptitude Score</div></div>
   </div>
   <div class="stat-card">
-    <div class="stat-icon bg-amber"><i class="fas fa-trophy"></i></div>
-    <div class="stat-info"><div class="stat-value">Ready</div><div class="stat-label">Placement Status</div></div>
+    <div class="sc-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)"><i class="fas fa-trophy"></i></div>
+    <div><div class="sc-val">Ready</div><div class="sc-label">Placement Status</div></div>
   </div>
 </div>
 
-<div class="cards-grid">
-  <a href="{{ url_for('profile') }}"><div class="dash-card">
-    <div class="card-icon bg-amber"><i class="fas fa-user"></i></div>
-    <span class="card-label">Profile</span>
-  </div></a>
-  <a href="{{ url_for('subject_notes') }}"><div class="dash-card">
-    <div class="card-icon bg-red"><i class="fas fa-book"></i></div>
-    <span class="card-label">Subject Notes</span>
-  </div></a>
-  <a href="{{ url_for('placement_notes') }}"><div class="dash-card">
-    <div class="card-icon bg-cyan"><i class="fas fa-graduation-cap"></i></div>
-    <span class="card-label">Placement Notes</span>
-  </div></a>
-  <a href="{{ url_for('take_exam') }}"><div class="dash-card">
-    <div class="card-icon bg-purple"><i class="fas fa-file-alt"></i></div>
-    <span class="card-label">Exam</span>
-  </div></a>
-  <a href="{{ url_for('aptitude') }}"><div class="dash-card">
-    <div class="card-icon bg-slate"><i class="fas fa-brain"></i></div>
-    <span class="card-label">Aptitude</span>
-  </div></a>
-  <a href="{{ url_for('exam_result') }}"><div class="dash-card">
-    <div class="card-icon bg-teal"><i class="fas fa-chart-line"></i></div>
-    <span class="card-label">Exam Result</span>
-  </div></a>
-  <a href="{{ url_for('upload') }}"><div class="dash-card">
-    <div class="card-icon bg-orange"><i class="fas fa-robot"></i></div>
-    <span class="card-label">MCQ Generator</span>
-  </div></a>
+<div class="quick-links">
+  <a href="{{ url_for('profile') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i class="fas fa-user"></i></div><div class="ql-label">Profile</div></a>
+  <a href="{{ url_for('subject_notes') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)"><i class="fas fa-book"></i></div><div class="ql-label">Subject Notes</div></a>
+  <a href="{{ url_for('placement_notes') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-briefcase"></i></div><div class="ql-label">Placement Notes</div></a>
+  <a href="{{ url_for('take_exam') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#06b6d4,#0891b2)"><i class="fas fa-file-pen"></i></div><div class="ql-label">Exam</div></a>
+  <a href="{{ url_for('aptitude') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-brain"></i></div><div class="ql-label">Aptitude</div></a>
+  <a href="{{ url_for('exam_result') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)"><i class="fas fa-square-poll-vertical"></i></div><div class="ql-label">Exam Result</div></a>
+  <a href="{{ url_for('upload') }}" class="ql-card"><div class="ql-icon" style="background:linear-gradient(135deg,#ec4899,#db2777)"><i class="fas fa-robot"></i></div><div class="ql-label">MCQ Generator</div></a>
 </div>
 
-<div class="two-col">
-  <div class="dash-panel">
-    <h3><i class="fas fa-calendar-alt" style="color:#818cf8"></i> Upcoming Exams</h3>
-    <table class="dash-table">
+<div class="grid-2">
+  <div class="card-panel">
+    <h3><i class="fas fa-calendar-check"></i> Upcoming Exams</h3>
+    <table>
       <thead><tr><th>Subject</th><th>Date</th><th>Time</th><th>Action</th></tr></thead>
       <tbody>
-        <tr><td>Java</td><td>10 Feb 2026</td><td>10:00 AM</td><td><button class="btn btn-primary btn-sm start-btn">Start</button></td></tr>
-        <tr><td>Aptitude</td><td>12 Feb 2026</td><td>02:00 PM</td><td><button class="btn btn-primary btn-sm start-btn">Start</button></td></tr>
+        <tr><td>Java</td><td>10 Feb 2026</td><td>10:00 AM</td><td><button class="btn-primary btn-sm btn-green" onclick="if(confirm('Start exam now?'))window.location='{{ url_for('take_exam') }}'">Start</button></td></tr>
+        <tr><td>Aptitude</td><td>12 Feb 2026</td><td>02:00 PM</td><td><button class="btn-primary btn-sm btn-green" onclick="if(confirm('Start exam now?'))window.location='{{ url_for('aptitude') }}'">Start</button></td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="dash-panel">
-    <h3><i class="fas fa-chart-bar" style="color:#4ade80"></i> Recent Results</h3>
-    <table class="dash-table">
+  <div class="card-panel">
+    <h3><i class="fas fa-trophy"></i> Recent Results</h3>
+    <table>
       <thead><tr><th>Exam</th><th>Score</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td>Python Test</td><td>82%</td><td><span class="badge badge-success">Pass</span></td></tr>
-        <tr><td>Aptitude Mock</td><td>68%</td><td><span class="badge badge-warning">Average</span></td></tr>
+        <tr><td>Python Test</td><td>82%</td><td><span class="badge green">Pass</span></td></tr>
+        <tr><td>Aptitude Mock</td><td>68%</td><td><span class="badge yellow">Average</span></td></tr>
+        <tr><td>DBMS Quiz</td><td>91%</td><td><span class="badge green">Pass</span></td></tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<div class="dash-panel">
-  <h3><i class="fas fa-bell" style="color:#fbbf24"></i> Announcements</h3>
-  <div class="announce-item">Aptitude exam scheduled on Friday.</div>
-  <div class="announce-item">New Java placement notes uploaded.</div>
+<div class="card-panel">
+  <h3><i class="fas fa-bullhorn"></i> Announcements</h3>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div style="padding:14px 18px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9;font-size:13px;color:#475569;display:flex;align-items:center;gap:10px"><i class="fas fa-bell" style="color:#6366f1"></i> Aptitude exam scheduled on Friday.</div>
+    <div style="padding:14px 18px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9;font-size:13px;color:#475569;display:flex;align-items:center;gap:10px"><i class="fas fa-book" style="color:#10b981"></i> New Java placement notes uploaded.</div>
+    <div style="padding:14px 18px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9;font-size:13px;color:#475569;display:flex;align-items:center;gap:10px"><i class="fas fa-trophy" style="color:#f59e0b"></i> Top scorers will receive certificates this month.</div>
+  </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
-document.querySelectorAll(".start-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const subject = btn.closest("tr").children[0].innerText;
-    if (confirm("Start " + subject + " exam now?")) {
-      window.location.href = "{{ url_for('take_exam') }}";
-    }
-  });
-});
 {% endblock %}

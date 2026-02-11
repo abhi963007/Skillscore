@@ -1,91 +1,92 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}Aptitude Test{% endblock %}
 {% block page_title %}Aptitude Test{% endblock %}
-
-{% block extra_css %}
-.apt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.apt-timer{background:rgba(239,68,68,.12);color:#f87171;padding:10px 20px;border-radius:12px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(239,68,68,.15)}
-.apt-tabs{display:flex;gap:8px;margin-bottom:20px}
-.apt-tab{padding:10px 20px;border-radius:10px;background:rgba(255,255,255,.06);cursor:pointer;font-weight:500;font-size:13px;border:1px solid rgba(255,255,255,.06);font-family:'Inter',sans-serif;transition:all .2s;color:rgba(255,255,255,.6)}
-.apt-tab:hover{background:rgba(255,255,255,.1);color:#fff}
-.apt-tab.active{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border-color:transparent;box-shadow:0 2px 12px rgba(99,102,241,.3)}
-.apt-section{display:none}
-.apt-section.active{display:block}
-.q-block{margin-bottom:18px;padding:20px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06)}
-.q-block p{font-weight:600;color:#f1f5f9;margin-bottom:12px;font-size:14px}
-.q-block label{display:block;margin:6px 0;cursor:pointer;font-size:14px;color:rgba(255,255,255,.65);padding:10px 14px;border-radius:10px;transition:all .2s;border:1px solid transparent}
-.q-block label:hover{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.15);color:#f1f5f9}
-.q-block label input{margin-right:10px;accent-color:#6366f1}
-{% endblock %}
-
 {% block content %}
-<div class="dash-panel" style="max-width:800px">
-  <div class="apt-header">
-    <h3 style="margin-bottom:0"><i class="fas fa-brain" style="color:#c084fc"></i> Aptitude Test</h3>
-    <div class="apt-timer"><i class="fas fa-clock"></i> <span id="aptTime">10:00</span></div>
-  </div>
 
-  <div class="apt-tabs">
-    <button class="apt-tab active" onclick="showAptSection('quant',this)">Quantitative</button>
-    <button class="apt-tab" onclick="showAptSection('logical',this)">Logical</button>
-    <button class="apt-tab" onclick="showAptSection('verbal',this)">Verbal</button>
+<div class="card-panel" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+  <div>
+    <h3 style="margin-bottom:4px"><i class="fas fa-brain"></i> Aptitude Assessment</h3>
+    <p style="font-size:13px;color:#94a3b8">Duration: 45 minutes &middot; 3 Sections &middot; 15 Questions</p>
   </div>
-
-  <div id="quant" class="apt-section active">
-    <div class="q-block">
-      <p>1. What is 25% of 200?</p>
-      <label><input type="radio" name="q1" value="50"> 50</label>
-      <label><input type="radio" name="q1" value="25"> 25</label>
-    </div>
-  </div>
-
-  <div id="logical" class="apt-section">
-    <div class="q-block">
-      <p>2. Find the odd one out: Apple, Mango, Carrot</p>
-      <label><input type="radio" name="q2" value="Carrot"> Carrot</label>
-      <label><input type="radio" name="q2" value="Apple"> Apple</label>
-    </div>
-  </div>
-
-  <div id="verbal" class="apt-section">
-    <div class="q-block">
-      <p>3. Choose the correct synonym of "Fast"</p>
-      <label><input type="radio" name="q3" value="Quick"> Quick</label>
-      <label><input type="radio" name="q3" value="Slow"> Slow</label>
-    </div>
-  </div>
-
-  <div style="text-align:center;margin-top:24px">
-    <button class="btn btn-success" style="padding:12px 30px" onclick="submitAptTest()"><i class="fas fa-paper-plane"></i> Submit Aptitude Test</button>
+  <div style="display:flex;align-items:center;gap:10px;padding:10px 20px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px">
+    <i class="fas fa-clock" style="color:#ef4444;font-size:18px"></i>
+    <span id="timer" style="font-size:20px;font-weight:800;color:#ef4444">45:00</span>
   </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
-let aptTotal = 600;
-const aptTimerInterval = setInterval(()=>{
-  let m=Math.floor(aptTotal/60), s=aptTotal%60;
-  document.getElementById("aptTime").innerText = m+":"+String(s).padStart(2,"0");
-  aptTotal--;
-  if(aptTotal<0){ submitAptTest(); }
+<!-- Tabs -->
+<div style="display:flex;gap:8px;margin-bottom:20px">
+  <button class="tab-btn active" onclick="showTab('quant',this)" style="padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid #e0e7ff;background:#eef2ff;color:#6366f1;font-family:'Inter',sans-serif;transition:all .2s">Quantitative</button>
+  <button class="tab-btn" onclick="showTab('logical',this)" style="padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-family:'Inter',sans-serif;transition:all .2s">Logical</button>
+  <button class="tab-btn" onclick="showTab('verbal',this)" style="padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-family:'Inter',sans-serif;transition:all .2s">Verbal</button>
+</div>
+
+<div id="quant" class="tab-content">
+  <div class="card-panel">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700">1</div>
+      <span style="font-size:14px;font-weight:600;color:#1e293b">If a train travels 360 km in 4 hours, what is its speed?</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding-left:44px">
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="aq1" style="accent-color:#6366f1"> A) 80 km/h</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="aq1" style="accent-color:#6366f1"> B) 90 km/h</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="aq1" style="accent-color:#6366f1"> C) 100 km/h</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="aq1" style="accent-color:#6366f1"> D) 70 km/h</label>
+    </div>
+  </div>
+</div>
+
+<div id="logical" class="tab-content" style="display:none">
+  <div class="card-panel">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700">1</div>
+      <span style="font-size:14px;font-weight:600;color:#1e293b">Find the next number: 2, 6, 12, 20, ?</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding-left:44px">
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="lq1" style="accent-color:#10b981"> A) 28</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="lq1" style="accent-color:#10b981"> B) 30</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="lq1" style="accent-color:#10b981"> C) 32</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="lq1" style="accent-color:#10b981"> D) 26</label>
+    </div>
+  </div>
+</div>
+
+<div id="verbal" class="tab-content" style="display:none">
+  <div class="card-panel">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700">1</div>
+      <span style="font-size:14px;font-weight:600;color:#1e293b">Choose the synonym of "Abundant":</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding-left:44px">
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="vq1" style="accent-color:#f59e0b"> A) Scarce</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="vq1" style="accent-color:#f59e0b"> B) Plentiful</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="vq1" style="accent-color:#f59e0b"> C) Limited</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;cursor:pointer;font-size:13px;color:#475569"><input type="radio" name="vq1" style="accent-color:#f59e0b"> D) Rare</label>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;justify-content:center;margin-top:20px">
+  <button class="btn-primary" onclick="if(confirm('Submit your answers?'))alert('Aptitude test submitted!')" style="padding:14px 40px;font-size:16px"><i class="fas fa-paper-plane"></i> Submit Test</button>
+</div>
+
+<script>
+let time=2700;
+const timerEl=document.getElementById('timer');
+setInterval(()=>{
+  time--;
+  const m=Math.floor(time/60).toString().padStart(2,'0');
+  const s=(time%60).toString().padStart(2,'0');
+  timerEl.textContent=m+':'+s;
+  if(time<=0)timerEl.textContent='00:00';
 },1000);
 
-function showAptSection(id, el){
-  document.querySelectorAll(".apt-section").forEach(s=>s.classList.remove("active"));
-  document.querySelectorAll(".apt-tab").forEach(t=>t.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  el.classList.add("active");
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(el=>el.style.display='none');
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.style.background='#fff';b.style.color='#64748b';b.style.borderColor='#e2e8f0'});
+  btn.style.background='#eef2ff';btn.style.color='#6366f1';btn.style.borderColor='#e0e7ff';
 }
+</script>
 
-function submitAptTest(){
-  clearInterval(aptTimerInterval);
-  let score=0;
-  if(document.querySelector("input[name='q1']:checked")&&document.querySelector("input[name='q1']:checked").value==="50") score++;
-  if(document.querySelector("input[name='q2']:checked")&&document.querySelector("input[name='q2']:checked").value==="Carrot") score++;
-  if(document.querySelector("input[name='q3']:checked")&&document.querySelector("input[name='q3']:checked").value==="Quick") score++;
-  let pct=Math.round((score/3)*100);
-  alert("Aptitude Test Submitted! Score: "+pct+"%");
-  window.location.href = "{{ url_for('exam_result') }}";
-}
 {% endblock %}

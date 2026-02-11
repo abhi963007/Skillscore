@@ -1,55 +1,56 @@
 {% extends "dashboard_base.html" %}
-
-{% block title %}Manage Users | SkillScore{% endblock %}
+{% block title %}Manage Users{% endblock %}
 {% block page_title %}Manage Users{% endblock %}
-
 {% block content %}
-<!-- Add New User -->
-<div class="dash-panel">
-  <h3><i class="fas fa-user-plus" style="color:#818cf8"></i> Add New User</h3>
-  <form action="{{ url_for('admin_add_user') }}" method="POST" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
-    <div style="flex:1;min-width:180px">
-      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Full Name</label>
-      <input type="text" name="name" placeholder="Enter name" required class="form-input" style="width:100%">
+
+<div class="grid-2">
+  <div class="card-panel">
+    <h3><i class="fas fa-user-plus"></i> Add New User</h3>
+    <form method="POST" action="{{ url_for('admin_add_user') }}">
+      <div class="form-group"><label>Full Name</label><input type="text" name="name" class="form-input" placeholder="Enter full name" required></div>
+      <div class="form-group"><label>Email</label><input type="email" name="email" class="form-input" placeholder="user@example.com" required></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group"><label>Password</label><input type="password" name="password" class="form-input" placeholder="Password" required></div>
+        <div class="form-group"><label>Role</label><select name="role" class="form-input" required><option value="student">Student</option><option value="teacher">Teacher</option><option value="admin">Admin</option></select></div>
+      </div>
+      <button type="submit" class="btn-primary"><i class="fas fa-plus"></i> Add User</button>
+    </form>
+  </div>
+
+  <div class="card-panel">
+    <h3><i class="fas fa-chart-pie"></i> User Statistics</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9">
+        <div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px"><i class="fas fa-user-graduate"></i></div><span style="font-size:14px;font-weight:500;color:#475569">Students</span></div>
+        <span style="font-size:20px;font-weight:800;color:#6366f1">110</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9">
+        <div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px"><i class="fas fa-chalkboard-user"></i></div><span style="font-size:14px;font-weight:500;color:#475569">Teachers</span></div>
+        <span style="font-size:20px;font-weight:800;color:#10b981">15</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;background:#f8fafc;border-radius:10px;border:1px solid #f1f5f9">
+        <div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px"><i class="fas fa-shield-halved"></i></div><span style="font-size:14px;font-weight:500;color:#475569">Admins</span></div>
+        <span style="font-size:20px;font-weight:800;color:#f59e0b">3</span>
+      </div>
     </div>
-    <div style="flex:1;min-width:200px">
-      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Email</label>
-      <input type="email" name="email" placeholder="Enter email" required class="form-input" style="width:100%">
-    </div>
-    <div style="min-width:140px">
-      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Role</label>
-      <select name="role" class="form-select" style="width:100%">
-        <option value="student">Student</option>
-        <option value="teacher">Teacher</option>
-        <option value="admin">Admin</option>
-      </select>
-    </div>
-    <button type="submit" class="btn btn-primary" style="height:42px"><i class="fas fa-plus"></i> Add User</button>
-  </form>
-  <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:12px">Default password: <code style="background:rgba(255,255,255,.08);padding:2px 8px;border-radius:4px;color:#818cf8">default123</code></p>
+  </div>
 </div>
 
-<!-- All Users -->
-<div class="dash-panel">
-  <h3><i class="fas fa-users" style="color:#c084fc"></i> All Users ({{ users|length }})</h3>
-  <table class="dash-table">
-    <thead>
-      <tr><th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Action</th></tr>
-    </thead>
+<div class="card-panel">
+  <h3><i class="fas fa-users"></i> All Users</h3>
+  <table>
+    <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Action</th></tr></thead>
     <tbody>
-      {% for u in users %}
+      {% for user in users %}
       <tr>
-        <td>{{ u.id }}</td>
-        <td style="font-weight:500;color:#f1f5f9">{{ u.name }}</td>
-        <td>{{ u.email }}</td>
-        <td><span class="badge badge-info">{{ u.role|capitalize }}</span></td>
-        <td><a href="{{ url_for('admin_delete_user', uid=u.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this user?')"><i class="fas fa-trash"></i> Delete</a></td>
+        <td style="font-weight:500;color:#1e293b">{{ user[1] }}</td>
+        <td>{{ user[2] }}</td>
+        <td><span class="badge {{ 'blue' if user[3] == 'admin' else 'green' if user[3] == 'teacher' else 'yellow' }}">{{ user[3] | capitalize }}</span></td>
+        <td><a href="{{ url_for('admin_delete_user', uid=user[0]) }}" class="btn-primary btn-sm btn-danger" onclick="return confirm('Delete this user?')"><i class="fas fa-trash"></i> Delete</a></td>
       </tr>
       {% endfor %}
-      {% if users|length == 0 %}
-      <tr><td colspan="5" style="text-align:center;color:rgba(255,255,255,.3);padding:24px">No users found</td></tr>
-      {% endif %}
     </tbody>
   </table>
 </div>
+
 {% endblock %}

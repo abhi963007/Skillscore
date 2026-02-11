@@ -1,20 +1,36 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}View Results{% endblock %}
 {% block page_title %}View Results{% endblock %}
-
 {% block content %}
-<div class="dash-panel">
-  <h3><i class="fas fa-chart-bar" style="color:#4ade80"></i> Student Results</h3>
-  <table class="dash-table">
-    <thead>
-      <tr><th>Student</th><th>Exam</th><th>Score</th><th>Status</th></tr>
-    </thead>
+
+<div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-chart-line"></i></div>
+    <div><div class="sc-val">76%</div><div class="sc-label">Class Average</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i class="fas fa-trophy"></i></div>
+    <div><div class="sc-val">92%</div><div class="sc-label">Highest Score</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)"><i class="fas fa-arrow-down"></i></div>
+    <div><div class="sc-val">38%</div><div class="sc-label">Lowest Score</div></div>
+  </div>
+</div>
+
+<div class="card-panel">
+  <h3><i class="fas fa-chart-column"></i> Student Exam Results</h3>
+  <table>
+    <thead><tr><th>Student</th><th>Exam</th><th>Score</th><th>Grade</th><th>Status</th></tr></thead>
     <tbody>
-      <tr><td style="font-weight:500;color:#f1f5f9">Ann</td><td>Java</td><td>85%</td><td><span class="badge badge-success">Pass</span></td></tr>
-      <tr><td style="font-weight:500;color:#f1f5f9">Rahul</td><td>Aptitude</td><td>62%</td><td><span class="badge badge-warning">Average</span></td></tr>
-      <tr><td style="font-weight:500;color:#f1f5f9">Sneha</td><td>Python</td><td>45%</td><td><span class="badge badge-danger">Fail</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Sneha R</td><td>Python Basics</td><td>92%</td><td><span class="badge blue">A+</span></td><td><span class="badge green">Pass</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Akhil Thomas</td><td>Python Basics</td><td>78%</td><td><span class="badge green">B+</span></td><td><span class="badge green">Pass</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Meera S</td><td>Java OOP</td><td>88%</td><td><span class="badge blue">A</span></td><td><span class="badge green">Pass</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Rahul M</td><td>Java OOP</td><td>45%</td><td><span class="badge red">D</span></td><td><span class="badge red">Fail</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Priya K</td><td>DBMS Quiz</td><td>71%</td><td><span class="badge green">B</span></td><td><span class="badge green">Pass</span></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Arun V</td><td>DBMS Quiz</td><td>38%</td><td><span class="badge red">F</span></td><td><span class="badge red">Fail</span></td></tr>
     </tbody>
   </table>
 </div>
+
 {% endblock %}

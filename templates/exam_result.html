@@ -1,40 +1,59 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}Exam Results{% endblock %}
 {% block page_title %}Exam Results{% endblock %}
-
-{% block extra_css %}
-.result-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-.result-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;transition:all .3s}
-.result-card:hover{background:rgba(255,255,255,.06);transform:translateY(-3px)}
-.result-card .stu-name{font-size:16px;font-weight:600;color:#f1f5f9;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.result-card .stu-name i{color:#818cf8}
-.score-circle{width:80px;height:80px;border-radius:50%;margin:12px auto;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff}
-.score-pass{background:linear-gradient(135deg,#10b981,#059669)}
-.score-fail{background:linear-gradient(135deg,#ef4444,#dc2626)}
-.res-row{display:flex;justify-content:space-between;padding:8px 0;font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(255,255,255,.6)}
-.res-row:last-child{border-bottom:none}
-.res-row strong{color:rgba(255,255,255,.5)}
-{% endblock %}
-
 {% block content %}
-<div class="result-cards" id="resultsContainer"></div>
-{% endblock %}
 
-{% block extra_js %}
-const stuData = [
-  {name:"Anu Thomas",subjects:{Java:78,Python:82,DBMS:70},aptitude:85,date:"10 Feb 2026"},
-  {name:"Rahul Nair",subjects:{Java:45,Python:52,DBMS:40},aptitude:48,date:"10 Feb 2026"},
-  {name:"Mariya Jose",subjects:{Java:88,Python:90,DBMS:84},aptitude:92,date:"10 Feb 2026"}
+<div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i class="fas fa-file-pen"></i></div>
+    <div><div class="sc-val">4</div><div class="sc-label">Exams Taken</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-chart-line"></i></div>
+    <div><div class="sc-val">76%</div><div class="sc-label">Average Score</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-trophy"></i></div>
+    <div><div class="sc-val">92%</div><div class="sc-label">Best Score</div></div>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px" id="resultsGrid">
+</div>
+
+<script>
+const results=[
+  {exam:'Python Basics',score:82,total:100,status:'Pass',subjects:[{name:'Variables',score:90},{name:'Functions',score:75},{name:'OOP',score:80}]},
+  {exam:'Java OOP',score:68,total:100,status:'Average',subjects:[{name:'Classes',score:70},{name:'Inheritance',score:65},{name:'Polymorphism',score:68}]},
+  {exam:'DBMS Quiz',score:91,total:100,status:'Pass',subjects:[{name:'SQL',score:95},{name:'Normalization',score:88},{name:'ER Diagrams',score:90}]},
+  {exam:'Aptitude Mock',score:45,total:100,status:'Fail',subjects:[{name:'Quantitative',score:50},{name:'Logical',score:40},{name:'Verbal',score:45}]}
 ];
-const rc = document.getElementById("resultsContainer");
-stuData.forEach(s=>{
-  const vals=Object.values(s.subjects);
-  const avg=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
-  const overall=Math.round((avg+s.aptitude)/2);
-  const pass=overall>=50;
-  let subHTML="";
-  for(let k in s.subjects) subHTML+='<div class="res-row"><span>'+k+'</span><span style="color:#f1f5f9;font-weight:500">'+s.subjects[k]+'%</span></div>';
-  rc.innerHTML+='<div class="result-card"><div class="stu-name"><i class="fas fa-user-circle"></i>'+s.name+'</div><div class="score-circle '+(pass?'score-pass':'score-fail')+'">'+overall+'%</div><div class="res-row"><strong>Aptitude</strong><span style="color:#f1f5f9">'+s.aptitude+'%</span></div><div class="res-row"><strong>Status</strong><span class="badge '+(pass?'badge-success':'badge-danger')+'">'+(pass?'PASS':'FAIL')+'</span></div><div class="res-row"><strong>Date</strong><span>'+s.date+'</span></div><div style="margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:12px"><strong style="font-size:12px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px">Subject-wise</strong>'+subHTML+'</div></div>';
+const grid=document.getElementById('resultsGrid');
+results.forEach(r=>{
+  const color=r.status==='Pass'?'#10b981':r.status==='Average'?'#f59e0b':'#ef4444';
+  const bg=r.status==='Pass'?'#f0fdf4':r.status==='Average'?'#fffbeb':'#fef2f2';
+  const border=r.status==='Pass'?'#bbf7d0':r.status==='Average'?'#fde68a':'#fecaca';
+  let subHtml=r.subjects.map(s=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f8fafc">
+      <span style="font-size:13px;color:#64748b">${s.name}</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:80px;height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden"><div style="width:${s.score}%;height:100%;background:${color};border-radius:3px"></div></div>
+        <span style="font-size:12px;font-weight:600;color:#1e293b">${s.score}%</span>
+      </div>
+    </div>`).join('');
+  grid.innerHTML+=`
+    <div class="card-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <h3 style="margin:0"><i class="fas fa-file-lines" style="color:#6366f1"></i> ${r.exam}</h3>
+        <span style="display:inline-block;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:600;background:${bg};color:${color};border:1px solid ${border}">${r.status}</span>
+      </div>
+      <div style="text-align:center;margin-bottom:16px">
+        <div style="font-size:36px;font-weight:800;color:${color}">${r.score}%</div>
+        <div style="font-size:12px;color:#94a3b8">${r.score}/${r.total} marks</div>
+      </div>
+      <div>${subHtml}</div>
+    </div>`;
 });
+</script>
+
 {% endblock %}

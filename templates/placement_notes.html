@@ -1,21 +1,62 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}Placement Notes{% endblock %}
 {% block page_title %}Placement Notes{% endblock %}
-
-{% block extra_css %}
-.note-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px 24px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;transition:all .3s}
-.note-item:hover{background:rgba(255,255,255,.07);transform:translateX(4px)}
-.note-item .note-name{font-size:14px;font-weight:500;color:#f1f5f9;display:flex;align-items:center;gap:12px}
-.note-item .note-name i{color:#4ade80;font-size:18px}
-{% endblock %}
-
 {% block content %}
-<div class="dash-panel">
-  <h3><i class="fas fa-graduation-cap" style="color:#06b6d4"></i> Placement Study Material</h3>
-  <div class="note-item"><span class="note-name"><i class="fas fa-file-pdf"></i> Aptitude Preparation</span><button class="btn btn-success btn-sm"><i class="fas fa-download"></i> Download</button></div>
-  <div class="note-item"><span class="note-name"><i class="fas fa-file-pdf"></i> HR Interview Questions</span><button class="btn btn-success btn-sm"><i class="fas fa-download"></i> Download</button></div>
-  <div class="note-item"><span class="note-name"><i class="fas fa-file-pdf"></i> Technical Interview Q&amp;A</span><button class="btn btn-success btn-sm"><i class="fas fa-download"></i> Download</button></div>
-  <div class="note-item"><span class="note-name"><i class="fas fa-file-pdf"></i> Group Discussion Tips</span><button class="btn btn-success btn-sm"><i class="fas fa-download"></i> Download</button></div>
+
+<div class="card-panel" style="margin-bottom:20px">
+  <h3><i class="fas fa-search"></i> Search Placement Materials</h3>
+  <input type="text" class="form-input" placeholder="Search by topic..." style="max-width:400px">
 </div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+  <div class="card-panel" style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px"><i class="fas fa-brain"></i></div>
+      <div><div style="font-size:14px;font-weight:600;color:#1e293b">Aptitude Formulas</div><div style="font-size:11px;color:#94a3b8">5 files &middot; 8 MB</div></div>
+    </div>
+    <p style="font-size:13px;color:#64748b;line-height:1.6">Speed, time, distance, percentages, profit & loss formulas.</p>
+    <button class="btn-primary btn-sm"><i class="fas fa-download"></i> Download All</button>
+  </div>
+  <div class="card-panel" style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px"><i class="fas fa-puzzle-piece"></i></div>
+      <div><div style="font-size:14px;font-weight:600;color:#1e293b">Logical Reasoning</div><div style="font-size:11px;color:#94a3b8">4 files &middot; 6 MB</div></div>
+    </div>
+    <p style="font-size:13px;color:#64748b;line-height:1.6">Patterns, series, coding-decoding, blood relations.</p>
+    <button class="btn-primary btn-sm btn-green"><i class="fas fa-download"></i> Download All</button>
+  </div>
+  <div class="card-panel" style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px"><i class="fas fa-comments"></i></div>
+      <div><div style="font-size:14px;font-weight:600;color:#1e293b">Verbal Ability</div><div style="font-size:11px;color:#94a3b8">3 files &middot; 5 MB</div></div>
+    </div>
+    <p style="font-size:13px;color:#64748b;line-height:1.6">Reading comprehension, grammar, vocabulary, and synonyms.</p>
+    <button class="btn-primary btn-sm" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-download"></i> Download All</button>
+  </div>
+  <div class="card-panel" style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#ef4444,#dc2626);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px"><i class="fas fa-laptop-code"></i></div>
+      <div><div style="font-size:14px;font-weight:600;color:#1e293b">Technical Interview</div><div style="font-size:11px;color:#94a3b8">6 files &middot; 12 MB</div></div>
+    </div>
+    <p style="font-size:13px;color:#64748b;line-height:1.6">DSA, system design, OOP concepts, and coding patterns.</p>
+    <button class="btn-primary btn-sm btn-danger"><i class="fas fa-download"></i> Download All</button>
+  </div>
+  <div class="card-panel" style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px"><i class="fas fa-user-tie"></i></div>
+      <div><div style="font-size:14px;font-weight:600;color:#1e293b">HR Interview Prep</div><div style="font-size:11px;color:#94a3b8">3 files &middot; 4 MB</div></div>
+    </div>
+    <p style="font-size:13px;color:#64748b;line-height:1.6">Common HR questions, STAR method, and tips for freshers.</p>
+    <button class="btn-primary btn-sm" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)"><i class="fas fa-download"></i> Download All</button>
+  </div>
+  <div class="card-panel" style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#ec4899,#db2777);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px"><i class="fas fa-file-lines"></i></div>
+      <div><div style="font-size:14px;font-weight:600;color:#1e293b">Resume Building</div><div style="font-size:11px;color:#94a3b8">2 files &middot; 3 MB</div></div>
+    </div>
+    <p style="font-size:13px;color:#64748b;line-height:1.6">Resume templates, cover letter tips, and LinkedIn optimization.</p>
+    <button class="btn-primary btn-sm" style="background:linear-gradient(135deg,#ec4899,#db2777)"><i class="fas fa-download"></i> Download All</button>
+  </div>
+</div>
+
 {% endblock %}

@@ -1,34 +1,47 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}Attendance{% endblock %}
 {% block page_title %}Attendance{% endblock %}
-
 {% block content %}
-<div class="dash-panel">
-  <h3><i class="fas fa-clipboard-check" style="color:#06b6d4"></i> Student Attendance</h3>
-  <table class="dash-table" id="attendanceTable">
-    <thead>
-      <tr><th>Student</th><th>Status</th><th>Action</th></tr>
-    </thead>
-    <tbody></tbody>
+
+<div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-user-check"></i></div>
+    <div><div class="sc-val">92%</div><div class="sc-label">Avg. Attendance</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i class="fas fa-users"></i></div>
+    <div><div class="sc-val">45</div><div class="sc-label">Total Students</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="sc-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)"><i class="fas fa-user-xmark"></i></div>
+    <div><div class="sc-val">4</div><div class="sc-label">Absent Today</div></div>
+  </div>
+</div>
+
+<div class="card-panel">
+  <h3><i class="fas fa-clipboard-check"></i> Student Attendance</h3>
+  <table>
+    <thead><tr><th>Student</th><th>Roll No</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody id="attendanceBody">
+      <tr><td style="font-weight:500;color:#1e293b">Sneha R</td><td>CS001</td><td id="s1"><span class="badge green">Present</span></td><td><button class="btn-primary btn-sm" onclick="toggleA('s1')"><i class="fas fa-repeat"></i> Toggle</button></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Akhil Thomas</td><td>CS002</td><td id="s2"><span class="badge green">Present</span></td><td><button class="btn-primary btn-sm" onclick="toggleA('s2')"><i class="fas fa-repeat"></i> Toggle</button></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Rahul M</td><td>CS003</td><td id="s3"><span class="badge red">Absent</span></td><td><button class="btn-primary btn-sm" onclick="toggleA('s3')"><i class="fas fa-repeat"></i> Toggle</button></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Meera S</td><td>CS004</td><td id="s4"><span class="badge green">Present</span></td><td><button class="btn-primary btn-sm" onclick="toggleA('s4')"><i class="fas fa-repeat"></i> Toggle</button></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Priya K</td><td>CS005</td><td id="s5"><span class="badge green">Present</span></td><td><button class="btn-primary btn-sm" onclick="toggleA('s5')"><i class="fas fa-repeat"></i> Toggle</button></td></tr>
+      <tr><td style="font-weight:500;color:#1e293b">Arun V</td><td>CS006</td><td id="s6"><span class="badge red">Absent</span></td><td><button class="btn-primary btn-sm" onclick="toggleA('s6')"><i class="fas fa-repeat"></i> Toggle</button></td></tr>
+    </tbody>
   </table>
 </div>
-{% endblock %}
 
-{% block extra_js %}
-const students = [
-  {name:"Ann", present:true},
-  {name:"Rahul", present:false},
-  {name:"Sneha", present:true}
-];
-const atBody = document.querySelector("#attendanceTable tbody");
-function renderAtt(){
-  atBody.innerHTML = "";
-  students.forEach((s,i)=>{
-    const badge = s.present ? '<span class="badge badge-success">Present</span>' : '<span class="badge badge-danger">Absent</span>';
-    atBody.innerHTML += '<tr><td style="font-weight:500;color:#f1f5f9">'+s.name+'</td><td>'+badge+'</td><td><button class="btn btn-outline btn-sm" onclick="toggleAtt('+i+')"><i class="fas fa-sync-alt"></i> Toggle</button></td></tr>';
-  });
+<script>
+function toggleA(id){
+  const el=document.getElementById(id);
+  if(el.innerHTML.includes('Present')){
+    el.innerHTML='<span class="badge red">Absent</span>';
+  }else{
+    el.innerHTML='<span class="badge green">Present</span>';
+  }
 }
-function toggleAtt(i){ students[i].present = !students[i].present; renderAtt(); }
-renderAtt();
+</script>
+
 {% endblock %}

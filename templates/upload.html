@@ -1,43 +1,63 @@
 {% extends "dashboard_base.html" %}
-
 {% block title %}MCQ Generator{% endblock %}
-{% block page_title %}Auto MCQ Generator{% endblock %}
-
-{% block extra_css %}
-.mcq-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;margin-bottom:16px;border-left:3px solid #6366f1;transition:all .3s}
-.mcq-card:hover{background:rgba(255,255,255,.06)}
-.mcq-card .mcq-q{font-weight:600;color:#f1f5f9;margin-bottom:14px;font-size:14px}
-.mcq-card label{display:block;margin:6px 0;font-size:13.5px;color:rgba(255,255,255,.6);padding:8px 14px;border-radius:8px;cursor:default}
-.mcq-card label input{margin-right:8px;accent-color:#6366f1}
-.mcq-answer{color:#4ade80;font-weight:600;margin-top:12px;font-size:13.5px;display:flex;align-items:center;gap:8px}
-.mcq-desc{color:rgba(255,255,255,.4);font-size:13px;margin-top:6px;padding-left:22px}
-{% endblock %}
-
+{% block page_title %}AI MCQ Generator{% endblock %}
 {% block content %}
-<div class="dash-panel">
-  <h3><i class="fas fa-robot" style="color:#f97316"></i> Upload Notes to Generate MCQs</h3>
-  <form method="POST" enctype="multipart/form-data" style="display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap">
-    <div style="flex:1;min-width:250px">
-      <label style="font-size:12px;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Select Text File</label>
-      <input type="file" name="notes" required class="form-input" style="width:100%">
+
+<div class="grid-2">
+  <div class="card-panel">
+    <h3><i class="fas fa-robot"></i> Generate MCQs from Text</h3>
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:16px">Upload a text file or paste content to auto-generate multiple-choice questions using AI.</p>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
+      <div class="form-group">
+        <label>Upload Text File (.txt)</label>
+        <input type="file" name="file" class="form-input" style="padding:10px" accept=".txt" required>
+      </div>
+      <button type="submit" class="btn-primary"><i class="fas fa-wand-magic-sparkles"></i> Generate MCQs</button>
+    </form>
+  </div>
+
+  <div class="card-panel">
+    <h3><i class="fas fa-info-circle"></i> How It Works</h3>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:#eef2ff;border-radius:10px;border:1px solid #e0e7ff">
+        <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0">1</div>
+        <div><div style="font-size:13px;font-weight:600;color:#4f46e5">Upload Your Notes</div><div style="font-size:12px;color:#6366f1;margin-top:2px">Upload a .txt file with your study material</div></div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:#f0fdf4;border-radius:10px;border:1px solid #bbf7d0">
+        <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0">2</div>
+        <div><div style="font-size:13px;font-weight:600;color:#059669">AI Processes Text</div><div style="font-size:12px;color:#16a34a;margin-top:2px">NLP extracts key concepts and generates questions</div></div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:#fffbeb;border-radius:10px;border:1px solid #fde68a">
+        <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0">3</div>
+        <div><div style="font-size:13px;font-weight:600;color:#d97706">Get Your MCQs</div><div style="font-size:12px;color:#b45309;margin-top:2px">Review generated questions with answers and explanations</div></div>
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary" style="height:42px"><i class="fas fa-magic"></i> Generate MCQs</button>
-  </form>
+  </div>
 </div>
 
 {% if mcqs %}
-<div class="dash-panel">
-  <h3><i class="fas fa-list-check" style="color:#4ade80"></i> Generated Questions ({{ mcqs|length }})</h3>
+<div class="card-panel" style="margin-top:20px">
+  <h3><i class="fas fa-list-check"></i> Generated Questions ({{ mcqs|length }})</h3>
   {% for mcq in mcqs %}
-  <div class="mcq-card">
-    <div class="mcq-q">Q{{ loop.index }}. {{ mcq.question }}</div>
-    {% for opt in mcq.options %}
-      <label><input type="radio" name="gen_q{{ loop.parent.loop.index }}" disabled> {{ opt }}</label>
-    {% endfor %}
-    <div class="mcq-answer"><i class="fas fa-check-circle"></i> Correct: {{ mcq.answer }}</div>
-    <div class="mcq-desc"><i class="fas fa-info-circle"></i> {{ mcq.description }}</div>
+  <div style="padding:18px;background:#f8fafc;border-radius:12px;border:1px solid #f1f5f9;margin-bottom:12px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700">{{ loop.index }}</div>
+      <span style="font-size:14px;font-weight:600;color:#1e293b">{{ mcq.question }}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-left:44px;margin-bottom:10px">
+      {% for opt in mcq.options %}
+      <div style="padding:8px 14px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#475569">{{ opt }}</div>
+      {% endfor %}
+    </div>
+    <div style="padding-left:44px;display:flex;gap:12px">
+      <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;font-size:12px;font-weight:600;color:#16a34a"><i class="fas fa-check-circle"></i> {{ mcq.answer }}</span>
+      {% if mcq.description %}
+      <span style="font-size:12px;color:#94a3b8;display:flex;align-items:center;gap:4px"><i class="fas fa-info-circle"></i> {{ mcq.description }}</span>
+      {% endif %}
+    </div>
   </div>
   {% endfor %}
 </div>
 {% endif %}
+
 {% endblock %}
